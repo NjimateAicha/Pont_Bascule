@@ -1,0 +1,91 @@
+<mvc:View
+  controllerName="projectsd.controller.Commande.Article"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+  xmlns:smartTable="sap.ui.comp.smarttable"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:core="sap.ui.core">
+
+  <!-- PAGE PRINCIPALE -->
+  <Page title="Gestion des Articles" id="pageArticle">
+    <content>
+
+
+      <smartFilterBar:SmartFilterBar
+        id="smartFilterBar1"
+        entitySet="ZCDS_article">
+        <smartFilterBar:controlConfiguration>
+          <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration1"
+            key="Idarticle"
+            visibleInAdvancedArea="true" />
+        </smartFilterBar:controlConfiguration>
+      </smartFilterBar:SmartFilterBar>
+
+
+      <!-- Tableau des articles -->
+      <smartTable:SmartTable
+        id="smartTableArticle"
+        smartFilterId="smartFilterBarArticle"
+        entitySet="ZCDS_article"
+        tableType="ResponsiveTable"
+        useTablePersonalisation="true"
+        useVariantManagement="false"
+        header="Liste des Articles"
+        showRowCount="true"
+        enableAutoBinding="true"
+        persistencyKey="PT_ARTICLE">
+
+        <smartTable:customToolbar>
+          <Toolbar id="_IDGenToolbar2">
+            <Title id="_IDGenTitle1" text="Articles" />
+            <ToolbarSpacer id="_IDGenToolbarSpacer2" />
+            <Button id="_IDGenButton12" text="Ajouter un article" icon="sap-icon://add" press="onAddArticlePress" />
+          </Toolbar>
+        </smartTable:customToolbar>
+      </smartTable:SmartTable>
+    </content>
+
+    <footer>
+      <Toolbar id="_IDGenToolbar3">
+        <ToolbarSpacer id="_IDGenToolbarSpacer3" />
+        <Button id="_IDGenButton13" text="Retour" icon="sap-icon://nav-back" press="onNavBack" />
+      </Toolbar>
+    </footer>
+  </Page>
+
+  <!-- DIALOGUE POUR AJOUT ARTICLE -->
+  <Dialog
+    id="addArticleDialog"
+    title="Ajouter un nouvel article"
+    contentWidth="30rem"
+    class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+    
+    <f:SimpleForm
+      id="formAddArticle"
+      editable="true"
+      layout="ResponsiveGridLayout">
+      <f:content>
+        <Label id="_IDGenLabel15" text="ID Article *" required="true" />
+        <Input id="_IDGenInput15" value="{newArticle>/Idarticle}" placeholder="ID" />
+
+        <Label id="_IDGenLabel16" text="Nom de l'article *" required="true" />
+        <Input id="_IDGenInput16" value="{newArticle>/Nomarticle}" placeholder="Nom" />
+
+        <Label id="_IDGenLabel17" text="Description" />
+        <Input id="_IDGenInput17" value="{newArticle>/Description}" placeholder="Description" />
+
+        <Label id="_IDGenLabel18" text="Prix unitaire" />
+        <Input id="_IDGenInput18" value="{newArticle>/Prixunitaire}" type="Number" placeholder="Prix" />
+      </f:content>
+    </f:SimpleForm>
+
+    <beginButton>
+      <Button id="_IDGenButton14" text="Enregistrer" type="Emphasized" press="onSaveArticle" />
+    </beginButton>
+    <endButton>
+      <Button id="_IDGenButton15" text="Annuler" press="onCancelArticleDialog" />
+    </endButton>
+  </Dialog>
+
+</mvc:View>

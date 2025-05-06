@@ -1,0 +1,93 @@
+<mvc:View
+  controllerName="projectsd.controller.Commande.Client"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+  xmlns:smartTable="sap.ui.comp.smarttable"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:unified="sap.ui.unified">
+
+  <!-- CONTENU PRINCIPAL -->
+  <Page title="Gestion des Clients" id="pageClient">
+    <content>
+      <!-- SmartFilterBar -->
+      <smartFilterBar:SmartFilterBar
+        id="smartFilterBar"
+        entitySet="ZCDS_Clientt">
+        <smartFilterBar:controlConfiguration>
+          <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration"
+            key="Idclient"
+            visibleInAdvancedArea="true" />
+        </smartFilterBar:controlConfiguration>
+      </smartFilterBar:SmartFilterBar>
+
+      <!-- SmartTable -->
+      <smartTable:SmartTable
+        id="smartTableClient"
+        smartFilterId="smartFilterBar"
+        entitySet="ZCDS_Clientt"
+        tableType="ResponsiveTable"
+        useTablePersonalisation="true"
+        useVariantManagement="false"
+        header="Liste des Clients"
+        showRowCount="true"
+        enableAutoBinding="true"
+        persistencyKey="PT_CLIENT">
+
+        <smartTable:customToolbar>
+          <Toolbar id="_IDGenToolbar">
+            <Title id="_IDGenTitle" text="Clients" />
+            <ToolbarSpacer id="_IDGenToolbarSpacer" />
+            <Button id="_IDGenButton1" text="Ajouter un client" icon="sap-icon://add" press="onAddClientPress" />
+          </Toolbar>
+        </smartTable:customToolbar>
+      </smartTable:SmartTable>
+    </content>
+
+    <footer>
+      <Toolbar id="_IDGenToolbar1">
+        <ToolbarSpacer id="_IDGenToolbarSpacer1" />
+        <Button id="_IDGenButton9" text="Retour" icon="sap-icon://nav-back" press="onNavBack" />
+      </Toolbar>
+    </footer>
+  </Page>
+
+
+  <Dialog
+    id="addClientDialog"
+    title="Ajouter un nouveau client"
+    contentWidth="30rem"
+    class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+    
+    <f:SimpleForm
+      id="formAddClient1"
+      editable="true"
+      layout="ResponsiveGridLayout">
+      <f:content>
+        <Label id="_IDGenLabel10" text="ID Client *" required="true" />
+        <Input id="_IDGenInput10" value="{newClient>/Idclient}" placeholder="Entrez l'ID du client" maxLength="10" />
+
+        <Label id="_IDGenLabel11" text="Nom Client *" required="true" />
+        <Input id="_IDGenInput11" value="{newClient>/Nomclient}" placeholder="Entrez le nom du client" maxLength="50" />
+
+        <Label id="_IDGenLabel12" text="Téléphone" />
+        <Input id="_IDGenInput12" value="{newClient>/Telephone}" placeholder="Téléphone" maxLength="15" liveChange="validatePhone" />
+
+        <Label id="_IDGenLabel13" text="Adresse" />
+        <Input id="_IDGenInput13" value="{newClient>/Adresse}" placeholder="Adresse" maxLength="100" />
+
+        <Label id="_IDGenLabel14" text="Email" />
+        <Input id="_IDGenInput14" value="{newClient>/Email}" placeholder="Email" maxLength="100" liveChange="validateEmail" />
+      </f:content>
+    </f:SimpleForm>
+
+    <beginButton>
+      <Button id="_IDGenButton10" text="Enregistrer" type="Emphasized" press="onSaveClient" />
+    </beginButton>
+    <endButton>
+      <Button id="_IDGenButton11" text="Annuler" press="onCancelDialog" />
+    </endButton>
+  </Dialog>
+
+</mvc:View>

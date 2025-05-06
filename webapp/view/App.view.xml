@@ -1,0 +1,57 @@
+<mvc:View
+  controllerName="projectsd.controller.App"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:tnt="sap.tnt"
+  displayBlock="true">
+  
+  <tnt:ToolPage id="toolPage">
+
+    <!-- Menu latéral de navigation -->
+    <tnt:sideContent>
+      <tnt:SideNavigation id="_IDGenSideNavigation" expanded="true" itemSelect="onSideNavSelect">
+
+        <tnt:NavigationList id="_IDGenNavigationList">
+
+          
+          <tnt:NavigationListItem id="_IDGenNavigationListItem1" text="Articles" key="Article" icon="sap-icon://product"/>
+          <tnt:NavigationListItem id="_IDGenNavigationListItem2" text="Clients" key="Client" icon="sap-icon://customer"/>
+          <tnt:NavigationListItem id="_IDGenNavigationListItem3" text="Commandes" key="Commande" icon="sap-icon://sales-order"/>
+
+        </tnt:NavigationList>
+      </tnt:SideNavigation>
+    </tnt:sideContent>
+
+    <!-- Contenu principal avec App + Footer -->
+    <tnt:mainContents>
+     
+
+     <VBox id="_IDGenVBox1" fitContainer="true" class="sapUiContentPadding">
+  
+                <Bar id="_IDGenBar" design="Header">
+          <contentLeft>
+            <Button id="_IDGenButton122" icon="sap-icon://menu2" press="onToggleSidebar" type="Transparent" />
+          </contentLeft>
+          <contentMiddle>
+            <Title id="_IDGenTitle22" text="Mon Application SAPUI5"/>
+          </contentMiddle>
+        </Bar>
+        <!-- Vue principale injectée dynamiquement -->
+        <App id="app" class="sapUiSmallMarginBottom"/>
+
+        
+        <Bar id="_IDGenBar1" design="Footer">
+          <contentMiddle>
+            <Text id="_IDGenText5" text="© 2025 AichaNjimate. Tous droits réservés." />
+          </contentMiddle>
+        </Bar>
+
+      </VBox>
+
+      
+
+     
+    </tnt:mainContents>
+
+  </tnt:ToolPage>
+</mvc:View>

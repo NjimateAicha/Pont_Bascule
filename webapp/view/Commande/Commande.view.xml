@@ -1,0 +1,130 @@
+<mvc:View
+  controllerName="projectsd.controller.Commande.Commande"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+  xmlns:smartTable="sap.ui.comp.smarttable"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:unified="sap.ui.unified">
+
+  <!-- CONTENU PRINCIPAL -->
+  <Page title="Gestion des Commandes" id="pageCommande">
+    <content>
+      <!-- SmartFilterBar -->
+      <smartFilterBar:SmartFilterBar
+        id="smartFilterBar3"
+        entitySet="ZCDS_commande">
+        <smartFilterBar:controlConfiguration>
+          <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration3"
+            key="Idcommande"
+            visibleInAdvancedArea="true" />
+        </smartFilterBar:controlConfiguration>
+      </smartFilterBar:SmartFilterBar>
+
+      <!-- SmartTable -->
+      <smartTable:SmartTable
+        id="smartTableCommande"
+        smartFilterId="smartFilterBar"
+        entitySet="ZCDS_commande"
+        tableType="ResponsiveTable"
+        useTablePersonalisation="true"
+        useVariantManagement="false"
+        header="Liste des Commandes"
+        showRowCount="true"
+        enableAutoBinding="true"
+        persistencyKey="PT_COMMANDE">
+
+        <smartTable:customToolbar>
+          <Toolbar id="_IDGenToolbar4" >
+            <Title id="_IDGenTitle2" text="Commandes" />
+            <ToolbarSpacer id="_IDGenToolbarSpacer4" />
+            <Button id="_IDGenButton16" text="Ajouter une commande" icon="sap-icon://add" press="onAddCommandePress" />
+          </Toolbar>
+        </smartTable:customToolbar>
+      </smartTable:SmartTable>
+    </content>
+
+    <footer>
+      <Toolbar id="_IDGenToolbar5">
+        <ToolbarSpacer id="_IDGenToolbarSpacer5"  />
+        <Button id="_IDGenButton17"  text="Retour" icon="sap-icon://nav-back" press="onNavBack" />
+      </Toolbar>
+    </footer>
+  </Page>
+
+  <!-- ⚠️ LE DIALOG EST EN DEHORS DU <Page> MAIS DANS LA VUE -->
+  <Dialog
+    id="addCommandeDialog"
+    title="Ajouter une nouvelle commande"
+    contentWidth="30rem"
+    class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+    
+    <f:SimpleForm
+      id="formAddCommande1"
+      editable="true"
+      layout="ResponsiveGridLayout">
+      <f:content>
+        <Label id="_IDGenLabel19" text="ID Commande *" required="true" />
+        <Input id="_IDGenInput19"  value="{newCommande>/Idcommande}" placeholder="Entrez l'ID de la commande" maxLength="10" />
+
+        <Label id="_IDGenLabel20" text="Client *" required="true" />
+  
+          <Select id="selectClient" 
+        items="{
+          path: '/ZCDS_Clientt',  
+          sorter: { path: 'Nomclient' }
+        }"
+        selectedKey="{newCommande>/Idclient}"
+        change="onClientChange">
+  <core:Item id="_IDGenItem" key="{Idclient}" text="{Nomclient}" />
+
+
+        </Select>
+
+        <Label id="_IDGenLabel21"  text="Nom Client" />
+        <Input id="_IDGenInput20"  value="{newCommande>/Nomclient}" editable="false" />
+
+        <Label id="_IDGenLabel22"  text="Adresse" />
+        <Input id="_IDGenInput21"  value="{newCommande>/Adresse}" editable="false" />
+
+        <Label id="_IDGenLabel23"  text="Article *" required="true" />
+        <Select id="selectArticle"  
+                items="{
+                  path: '/ZCDS_article',
+                  sorter: { path: 'Nomarticle' }
+                }" 
+                selectedKey="{newCommande>/Idarticle}"
+                change="onArticleChange">
+          <core:Item id="_IDGenItem1" key="{Idarticle}" text="{Nomarticle}" />
+        </Select>
+
+        <Label id="_IDGenLabel24"  text="Prix Unitaire" />
+        <Input id="_IDGenInput22" value="{newCommande>/Prixunitaire}" editable="false" />
+
+        <Label id="_IDGenLabel25"  text="Quantité *" />
+        <!-- <Input id="_IDGenInput23" value="{newCommande>/Quantite}" type="Number" change="onQuantiteChange" /> -->
+        <Input id="_IDGenInput23"
+       value="{path: 'newCommande>/Quantite', type: 'sap.ui.model.type.Integer'}"
+       type="Number"
+       change="onQuantiteChange" />
+
+
+        <Label id="_IDGenLabel26"  text="Prix Total" />
+      
+        <Input id="_IDGenInput24"
+       value="{path: 'newCommande>/Prixtotal', type: 'sap.ui.model.type.Float'}"
+       editable="false" />
+
+      </f:content>
+    </f:SimpleForm>
+
+    <beginButton>
+      <Button id="_IDGenButton19"  text="Enregistrer" type="Emphasized" press="onSaveCommande" />
+    </beginButton>
+    <endButton>
+      <Button id="_IDGenButton18"  text="Annuler" press="onCancelDialog" />
+    </endButton>
+  </Dialog>
+
+</mvc:View>

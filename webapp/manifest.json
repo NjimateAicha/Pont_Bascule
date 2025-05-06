@@ -1,0 +1,172 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "projectsd",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.17.3",
+      "toolsId": "65902421-3eaf-4177-915e-ad174404fddf"
+    },
+    "dataSources": {
+      "ZSB_LIVRAISON_VAN": {
+        "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='ZSB_LIVRAISON_VAN',Version='0001')/$value/",
+        "type": "ODataAnnotation",
+        "settings": {
+          "localUri": "localService/mainService/ZSB_LIVRAISON_VAN.xml"
+        }
+      },
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZSB_LIVRAISON/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "ZSB_LIVRAISON_VAN"
+          ],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.130.8",
+      "libs": {
+       "sap.m": {},
+        "sap.ui.core": {},
+				"sap.f": {},
+				"sap.ui.comp": {},
+				"sap.ui.fl": {},
+				"sap.ui.mdc": {},
+        "sap.ui.table": {},
+        "sap.ui.unified": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "projectsd.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "projectsd.view",
+        "async": true,
+        "viewPath": "projectsd.view"
+      },
+      "routes": [
+        {
+          "name": "RouteMain",
+          "pattern": ":?query:",
+          "target": [
+            "TargetMain"
+          ]
+        },
+        {
+          "name":"Client",
+          "pattern": "Client",
+          "target": [
+            "TargetClient"
+          ]
+        },  {
+          "name":"Article",
+          "pattern": "Article",
+          "target": [
+            "TargetArticle"
+          ]
+        },
+        {
+          "name":"Commande",
+          "pattern": "Commande",
+          "target": [
+            "TargetCommande"
+          ]
+        }
+      ],
+      "targets": {
+  "TargetMain": {
+    "id": "Main",
+    "name": "Main",
+    "controlId": "app",
+    "controlAggregation": "pages"
+  },
+  "TargetClient": {
+    "viewId": "Client",
+    "viewName": "Commande/Client",
+    "type": "XML",
+    "controlId": "app",
+    "controlAggregation": "pages"
+  },
+  "TargetArticle": {
+    "viewName": "Commande/Article",
+    "viewId": "Article",
+    "type": "XML",
+    "controlId": "app",
+    "controlAggregation": "pages"
+  },
+  "TargetCommande": {
+    "viewName": "Commande/Commande",
+    "viewId": "Commande",
+    "type": "XML",
+    "controlId": "app",
+    "controlAggregation": "pages"
+  }
+}
+    },
+    "rootView": {
+      "viewName": "projectsd.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<mvc:View controllerName="projectsd.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+
+    <Page id="page" title="Bienvenue sur l'application"
+          class="sapUiContentPadding"
+          showHeader="true">
+   
+    </Page>
+</mvc:View>
+
