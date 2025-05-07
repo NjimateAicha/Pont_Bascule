@@ -26,24 +26,40 @@ sap.ui.define([
 
             this._oODataModel = this.getOwnerComponent().getModel();
             this._setupSmartTable();
+            const oSmartTable = this.byId("smartTableCommande");
+          
+            // Attendre que la table réelle soit disponible
+            oSmartTable.attachInitialise(() => {
+              const oTable = oSmartTable.getTable();
+              
+              // Si la table est une ResponsiveTable (sap.m.Table), utilise cette méthode
+              if (oTable.setMode) {
+                oTable.setMode("SingleSelectMaster"); // ou "MultiSelect"
+              }
+            });
         },
+
+       
 
         _setupSmartTable: function () {
             var oSmartTable = this.getView().byId("smartTableCommande");
             if (oSmartTable) {
-                oSmartTable.setInitiallyVisibleFields("Idcommande,Datecommande,Nomclient,Nomarticle,Prixunitaire,Quantite,Prixtotal");
+                oSmartTable.setInitiallyVisibleFields("Idcommande,Datecommande,Nomclient,Nomarticle,Prixunitaire,Quantite,Prixtotal,Adresse");
             }
         },
 
+     
+
         onAddCommandePress: function () {
             var oDialog = this.getView().byId("addCommandeDialog");
-            if (oDialog) {
-                // Réinitialiser le modèle à chaque ouverture
-                this.getView().getModel("newCommande").setData({
-                    Idcommande: "",
-                    Datecommande: null,
+        
+            this._generateNextCommandeId((sNextId) => {
+                var oCommandeModel = this.getView().getModel("newCommande");
+                oCommandeModel.setData({
+                    Idcommande: sNextId,
+                    Datecommande: new Date(),
                     Quantite: "1",
-                    Prixtotal: "",
+                    Prixtotal: 0,
                     Idclient: "",
                     Nomclient: "",
                     Adresse: "",
@@ -51,13 +67,14 @@ sap.ui.define([
                     Nomarticle: "",
                     Prixunitaire: ""
                 });
-                
-                this.getView().addDependent(oDialog);
-                oDialog.open();
-            } else {
-                MessageBox.error("Erreur : le dialogue 'addCommandeDialog' est introuvable.");
-            }
+        
+                if (oDialog) {
+                    this.getView().addDependent(oDialog);
+                    oDialog.open();
+                }
+            });
         },
+        
 
         onCancelDialog: function () {  // Nom corrigé pour correspondre à la vue
             this.getView().byId("addCommandeDialog").close();
@@ -65,81 +82,125 @@ sap.ui.define([
         onSaveCommande: function () {
             var oModel = this._oODataModel;
             var oView = this.getView();
-            var oData = oView.getModel("newCommande").getData();
-            var self = this;
+            var oCommandeModel = oView.getModel("newCommande");
         
-            // Validate required fields
+            // Mettre la date du jour dans le modèle JSON "newCommande"
+            var oDate = new Date();
+            var sDateFormatted = oDate.toISOString().split("T")[0]; // format "YYYY-MM-DD"
+            oCommandeModel.setProperty("/Datecommande", sDateFormatted);
+        
+            var oData = oCommandeModel.getData(); // on récupère les données du modèle JSON
+        
+            // Valider les champs obligatoires
             if (!oData.Idcommande || !oData.Idclient || !oData.Idarticle) {
                 MessageBox.error("Champs requis : ID Commande, Client, Article.");
                 return;
             }
         
-            // Parse and validate Quantite as integer
-            var quantite  = (oData.Quantite).toFixed(3).toString();
+            // Valider et formater la quantité
+            var quantite = parseFloat(oData.Quantite);
             if (isNaN(quantite) || quantite <= 0) {
-                MessageBox.error("Quantité invalide. Veuillez saisir un nombre entier positif.");
+                MessageBox.error("Quantité invalide. Veuillez saisir un nombre positif.");
                 return;
             }
         
-            // Parse and validate Prixunitaire
+            // Valider et parser le prix unitaire
             var prixUnitaire = parseFloat(oData.Prixunitaire);
             if (isNaN(prixUnitaire) || prixUnitaire < 0) {
                 MessageBox.error("Prix unitaire invalide.");
                 return;
             }
         
-            // Calculate price total
-            var prixTotal = (quantite * prixUnitaire).toFixed(3).toString;
-    
+            // Calculer le prix total
+            var prixTotal = (quantite * prixUnitaire).toFixed(3).toString();
         
-            // Create a clean payload object matching backend expectations
+            // Construire le payload
             var oPayload = {
                 Idcommande: oData.Idcommande,
-                Datecommande: oData.Datecommande || null,
-                Quantite: quantite,      // Integer
-                Prixtotal: prixTotal,    // Float with 2 decimal places 
+                Datecommande: oData.Datecommande,
+                Quantite: quantite.toString(),
+                Prixtotal: prixTotal,
                 Idclient: oData.Idclient,
                 Idarticle: oData.Idarticle
             };
         
-            // Debug payload before sending
             console.log("Payload being sent:", JSON.stringify(oPayload));
         
-            // Try different approach with the create call
-            try {
-                oModel.create("/ZCDS_commande", oPayload, {
-                    success: function (oData, oResponse) {
-                        MessageToast.show("Commande enregistrée avec succès.");
-                        self.getView().byId("addCommandeDialog").close();
-                        
-                        var oSmartTable = self.getView().byId("smartTableCommande");
-                        if (oSmartTable) {
-                            oSmartTable.rebindTable();
-                        }
+            var self = this;
+            // oModel.create("/ZCDS_commande", oPayload, {
+            //     success: function () {
+            //         MessageToast.show("Commande enregistrée avec succès.");
+            //         self.getView().byId("addCommandeDialog").close();
+        
+            //         var oSmartTable = self.getView().byId("smartTableCommande");
+            //         if (oSmartTable) {
+            //             oSmartTable.rebindTable();
+            //         }
+            //     },
+            //     error: function (oError) {
+            //         console.error("Full error object:", oError);
+            //         var sErrorDetails = "Erreur inconnue";
+            //         if (oError.responseText) {
+            //             try {
+            //                 var oErrorResponse = JSON.parse(oError.responseText);
+            //                 sErrorDetails = oErrorResponse.error.message.value || JSON.stringify(oErrorResponse);
+            //             } catch (e) {
+            //                 sErrorDetails = oError.responseText;
+            //             }
+            //         }
+            //         MessageBox.error("Erreur lors de l'enregistrement de la commande: " + sErrorDetails);
+            //     }
+            // });
+       
+            // Lire les données de l’article via son ID
+oModel.read("/ZCDS_article('" + oData.Idarticle + "')", {
+    success: function (oArticleData) {
+        var stockDisponible = parseFloat(oArticleData.Quantitearticle);
+
+        if (quantite > stockDisponible) {
+            MessageBox.error("Stock insuffisant. Quantité en stock : " + stockDisponible);
+            return;
+        }
+
+        // Stock suffisant, on peut créer la commande
+        oModel.create("/ZCDS_commande", oPayload, {
+            success: function () {
+                MessageToast.show("Commande enregistrée avec succès.");
+
+                // 🔽 Mettre à jour la quantité de l’article
+                var nouveauStock = stockDisponible - quantite;
+                var articleUpdatePayload = {
+                    Quantitearticle: nouveauStock.toString()
+                };
+
+                oModel.update("/ZCDS_article('" + oData.Idarticle + "')", articleUpdatePayload, {
+                    success: function () {
+                        MessageToast.show("Stock mis à jour.");
                     },
-                    error: function (oError) {
-                        console.error("Full error object:", oError);
-                        
-                        var sErrorDetails = "Erreur inconnue";
-                        if (oError.responseText) {
-                            try {
-                                var oErrorResponse = JSON.parse(oError.responseText);
-                                sErrorDetails = oErrorResponse.error.message.value || JSON.stringify(oErrorResponse);
-                            } catch (e) {
-                                sErrorDetails = oError.responseText;
-                            }
-                        }
-                        
-                        // Show detailed error
-                        MessageBox.error("Erreur lors de l'enregistrement de la commande: " + sErrorDetails);
+                    error: function () {
+                        MessageBox.error("La commande a été enregistrée, mais la mise à jour du stock a échoué.");
                     }
                 });
-            } catch (e) {
-                console.error("Exception during create operation:", e);
-                MessageBox.error("Exception lors de la création: " + e.message);
-            }
-        },
 
+                // Fermer le dialogue et rafraîchir la SmartTable
+                self.getView().byId("addCommandeDialog").close();
+                var oSmartTable = self.getView().byId("smartTableCommande");
+                if (oSmartTable) {
+                    oSmartTable.rebindTable();
+                }
+            },
+            error: function (oError) {
+                MessageBox.error("Erreur lors de la création de la commande.");
+            }
+        });
+    },
+    error: function () {
+        MessageBox.error("Impossible de récupérer les informations de l’article.");
+    }
+});
+
+        },
+        
         // Gestionnaire pour le changement de client
         onClientChange: function (oEvent) {
             console.log("onClientChange appelé");
@@ -164,6 +225,7 @@ sap.ui.define([
             oCommandeModel.setProperty("/Idclient", oClientData.Idclient);
             oCommandeModel.setProperty("/Nomclient", oClientData.Nomclient);
             oCommandeModel.setProperty("/Adresse", oClientData.Adresse);
+        
         },
 
         // Gestionnaire pour le changement d'article
@@ -224,6 +286,68 @@ sap.ui.define([
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 oRouter.navTo("RouteAccueil", {}, true);
             }
+        },
+        
+        onDeleteCommandePress: function () {
+            const oSmartTable = this.byId("smartTableCommande");
+            const oTable = oSmartTable.getTable();
+            const aSelectedItems = oTable.getSelectedItems();
+        
+            if (!aSelectedItems.length) {
+                sap.m.MessageToast.show("Veuillez sélectionner une commande à supprimer.");
+                return;
+            }
+        
+            const oSelectedItem = aSelectedItems[0];
+            const oContext = oSelectedItem.getBindingContext();
+            const sPath = oContext.getPath();
+        
+            sap.m.MessageBox.confirm("Voulez-vous vraiment supprimer cette commande ?", {
+                onClose: function (oAction) {
+                    if (oAction === "OK") {
+                        oContext.getModel().remove(sPath, {
+                            success: function () {
+                                sap.m.MessageToast.show("Commande supprimée avec succès.");
+                            },
+                            error: function () {
+                                sap.m.MessageBox.error("Erreur lors de la suppression de la commande.");
+                            }
+                        });
+                    }
+                }
+            });
+        },
+        _generateNextCommandeId: function (callback) {
+            var oModel = this._oODataModel;
+        
+            // Assure-toi que c’est bien le nom correct de l’EntitySet exposé (ex: ZCommandeSet)
+            oModel.read("/ZCDS_commande", {
+                success: function (oData) {
+                    var aCommandes = oData.results;
+                    var maxId = 0;
+        
+                    aCommandes.forEach(function (commande) {
+                        var match = commande.Idcommande.match(/\d+$/); // Exemple: extrait "0004" de "C0004"
+                        if (match) {
+                            var num = parseInt(match[0], 10);
+                            if (num > maxId) {
+                                maxId = num;
+                            }
+                        }
+                    });
+        
+                    // Génère le nouvel ID avec format C0001, C0002, etc.
+                    var nextId = "C" + String(maxId + 1).padStart(4, '0');
+        
+                    callback(nextId);
+                },
+                error: function () {
+                    MessageBox.error("Erreur lors de la récupération du dernier ID commande.");
+                }
+            });
         }
+        
+          
+          
     });
 });

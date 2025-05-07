@@ -32,19 +32,19 @@
           <contentLeft>
             <Button id="_IDGenButton122" icon="sap-icon://menu2" press="onToggleSidebar" type="Transparent" />
           </contentLeft>
-          <contentMiddle>
-            <Title id="_IDGenTitle22" text="Mon Application SAPUI5"/>
-          </contentMiddle>
+          <!-- <contentMiddle>
+            <Title id="_IDGenTitle22" text="Mon Application SAPUI"/>
+          </contentMiddle> -->
         </Bar>
         <!-- Vue principale injectée dynamiquement -->
         <App id="app" class="sapUiSmallMarginBottom"/>
 
-        
+<!--         
         <Bar id="_IDGenBar1" design="Footer">
           <contentMiddle>
             <Text id="_IDGenText5" text="© 2025 AichaNjimate. Tous droits réservés." />
           </contentMiddle>
-        </Bar>
+        </Bar> -->
 
       </VBox>
 

@@ -1,14 +1,3 @@
-// sap.ui.define([
-//   "sap/ui/core/mvc/Controller"
-// ], (BaseController) => {
-//   "use strict";
-
-//   return BaseController.extend("projectsd.controller.App", {
-//       onInit() {
-//       }
-//   });
-// });
-
 sap.ui.define([
   "sap/ui/core/mvc/Controller"
 ], function (Controller) {
@@ -20,8 +9,8 @@ sap.ui.define([
     onSideNavSelect: function (oEvent) {
       const sKey = oEvent.getParameter("item").getKey();
       const oRouter = this.getOwnerComponent().getRouter();
-      console.log(oRouter);  // Debugging step
-      console.log("Selected key:", sKey);  // Debugging step  
+      // console.log(oRouter);  // Debugging step
+      // console.log("Selected key:", sKey);  // Debugging step  
       switch (sKey) {
         case "Article":
           

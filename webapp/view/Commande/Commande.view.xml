@@ -23,24 +23,43 @@
       </smartFilterBar:SmartFilterBar>
 
       <!-- SmartTable -->
-      <smartTable:SmartTable
-        id="smartTableCommande"
-        smartFilterId="smartFilterBar"
-        entitySet="ZCDS_commande"
-        tableType="ResponsiveTable"
-        useTablePersonalisation="true"
-        useVariantManagement="false"
-        header="Liste des Commandes"
-        showRowCount="true"
-        enableAutoBinding="true"
-        persistencyKey="PT_COMMANDE">
+   
+        <smartTable:SmartTable
+  id="smartTableCommande"
+  smartFilterId="smartFilterBar"
+  entitySet="ZCDS_commande"
+  tableType="ResponsiveTable"
+  useTablePersonalisation="true"
+  useVariantManagement="false"
+ 
+  showRowCount="true"
+  enableAutoBinding="true"
+  persistencyKey="PT_COMMANDE"
+  initiallyVisibleFields="Idcommande,Idclient,Nomclient,Adresse,Idarticle,Nomarticle,Quantite,Prixunitaire,Prixtotal,Datecommande"> 
+
+  
 
         <smartTable:customToolbar>
           <Toolbar id="_IDGenToolbar4" >
             <Title id="_IDGenTitle2" text="Commandes" />
             <ToolbarSpacer id="_IDGenToolbarSpacer4" />
             <Button id="_IDGenButton16" text="Ajouter une commande" icon="sap-icon://add" press="onAddCommandePress" />
+            <Button id="btnDeleteCommande"
+            text="Supprimer"
+            icon="sap-icon://delete"
+            press="onDeleteCommandePress"
+            enabled="true" />
+
+
+               <Button id="btnUpdateCommande"
+            text="Modifier"
+            icon="sap-icon://edit"
+            press="onUpdateCommandePress"
+          
+            enabled="true" />
           </Toolbar>
+       
+
         </smartTable:customToolbar>
       </smartTable:SmartTable>
     </content>
@@ -89,6 +108,7 @@
         <Input id="_IDGenInput21"  value="{newCommande>/Adresse}" editable="false" />
 
         <Label id="_IDGenLabel23"  text="Article *" required="true" />
+        
         <Select id="selectArticle"  
                 items="{
                   path: '/ZCDS_article',
@@ -98,6 +118,7 @@
                 change="onArticleChange">
           <core:Item id="_IDGenItem1" key="{Idarticle}" text="{Nomarticle}" />
         </Select>
+        
 
         <Label id="_IDGenLabel24"  text="Prix Unitaire" />
         <Input id="_IDGenInput22" value="{newCommande>/Prixunitaire}" editable="false" />
