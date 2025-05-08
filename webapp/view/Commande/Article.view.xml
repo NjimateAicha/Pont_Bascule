@@ -31,16 +31,31 @@
         tableType="ResponsiveTable"
         useTablePersonalisation="true"
         useVariantManagement="false"
-        header="Liste des Articles"
+       
         showRowCount="true"
         enableAutoBinding="true"
         persistencyKey="PT_ARTICLE">
 
         <smartTable:customToolbar>
           <Toolbar id="_IDGenToolbar2">
+
             <Title id="_IDGenTitle1" text="Articles" />
             <ToolbarSpacer id="_IDGenToolbarSpacer2" />
             <Button id="_IDGenButton12" text="Ajouter un article" icon="sap-icon://add" press="onAddArticlePress" />
+             <Button id="btnDeleteArticle"
+  text="Supprimer"
+  icon="sap-icon://delete"
+  press="onDeleteArticlePress"
+  enabled="true" />
+     <Button id="btnUpdateArticle"
+  text="Modifier"
+  icon="sap-icon://edit"
+  press="onUpdateArticlePress"
+  enabled="true" />
+
+
+          
+       
           </Toolbar>
         </smartTable:customToolbar>
       </smartTable:SmartTable>
@@ -77,6 +92,9 @@
 
         <Label id="_IDGenLabel18" text="Prix unitaire" />
         <Input id="_IDGenInput18" value="{newArticle>/Prixunitaire}" type="Number" placeholder="Prix" />
+
+        <Label id="_IDGenLabell" text="Qunatite de l'article" />
+        <Input id="_IDGenInputt" value="{newArticle>/Quantitearticle}" type="Number" placeholder="Quantite Article" />
       </f:content>
     </f:SimpleForm>
 
@@ -86,6 +104,8 @@
     <endButton>
       <Button id="_IDGenButton15" text="Annuler" press="onCancelArticleDialog" />
     </endButton>
+
+
   </Dialog>
 
 </mvc:View>

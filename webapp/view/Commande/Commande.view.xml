@@ -23,24 +23,43 @@
       </smartFilterBar:SmartFilterBar>
 
       <!-- SmartTable -->
-      <smartTable:SmartTable
-        id="smartTableCommande"
-        smartFilterId="smartFilterBar"
-        entitySet="ZCDS_commande"
-        tableType="ResponsiveTable"
-        useTablePersonalisation="true"
-        useVariantManagement="false"
-        header="Liste des Commandes"
-        showRowCount="true"
-        enableAutoBinding="true"
-        persistencyKey="PT_COMMANDE">
+   
+        <smartTable:SmartTable
+  id="smartTableCommande"
+  smartFilterId="smartFilterBar"
+  entitySet="ZCDS_commande"
+  tableType="ResponsiveTable"
+  useTablePersonalisation="true"
+  useVariantManagement="false"
+ 
+  showRowCount="true"
+  enableAutoBinding="true"
+  persistencyKey="PT_COMMANDE"
+  initiallyVisibleFields="Idcommande,Idclient,Nomclient,Adresse,Quantite,Prixunitaire,Prixtotal,Datecommande"> 
+
+  
 
         <smartTable:customToolbar>
           <Toolbar id="_IDGenToolbar4" >
             <Title id="_IDGenTitle2" text="Commandes" />
             <ToolbarSpacer id="_IDGenToolbarSpacer4" />
             <Button id="_IDGenButton16" text="Ajouter une commande" icon="sap-icon://add" press="onAddCommandePress" />
+            <Button id="btnDeleteCommande"
+            text="Supprimer"
+            icon="sap-icon://delete"
+            press="onDeleteCommandePress"
+            enabled="true" />
+
+
+               <Button id="btnUpdateCommande"
+            text="Modifier"
+            icon="sap-icon://edit"
+            press="onUpdateCommandePress"
+          
+            enabled="true" />
           </Toolbar>
+       
+
         </smartTable:customToolbar>
       </smartTable:SmartTable>
     </content>
@@ -77,7 +96,7 @@
         }"
         selectedKey="{newCommande>/Idclient}"
         change="onClientChange">
-  <core:Item id="_IDGenItem" key="{Idclient}" text="{Nomclient}" />
+          <core:Item id="_IDGenItem" key="{Idclient}" text="{Nomclient}" />
 
 
         </Select>
@@ -89,34 +108,46 @@
         <Input id="_IDGenInput21"  value="{newCommande>/Adresse}" editable="false" />
 
         <Label id="_IDGenLabel23"  text="Article *" required="true" />
-        <Select id="selectArticle"  
-                items="{
-                  path: '/ZCDS_article',
-                  sorter: { path: 'Nomarticle' }
-                }" 
-                selectedKey="{newCommande>/Idarticle}"
-                change="onArticleChange">
-          <core:Item id="_IDGenItem1" key="{Idarticle}" text="{Nomarticle}" />
-        </Select>
 
-        <Label id="_IDGenLabel24"  text="Prix Unitaire" />
-        <Input id="_IDGenInput22" value="{newCommande>/Prixunitaire}" editable="false" />
-
-        <Label id="_IDGenLabel25"  text="Quantité *" />
-        <!-- <Input id="_IDGenInput23" value="{newCommande>/Quantite}" type="Number" change="onQuantiteChange" /> -->
-        <Input id="_IDGenInput23"
-       value="{path: 'newCommande>/Quantite', type: 'sap.ui.model.type.Integer'}"
-       type="Number"
-       change="onQuantiteChange" />
-
-
-        <Label id="_IDGenLabel26"  text="Prix Total" />
+              <Table id="articleTable" items="{newCommande>/Articles}">
+  <columns>
+    <Column id="_IDGenColumn"><Text id="_IDGenText" text="Article" /></Column>
+    <Column id="_IDGenColumn1"><Text id="_IDGenText1" text="Quantité" /></Column>
+    <Column id="_IDGenColumn2"><Text id="_IDGenText2" text="Prix Unitaire" /></Column>
+    <Column id="_IDGenColumn3"><Text id="_IDGenText3" text="Total" /></Column>
+  </columns>
+  <items>
+    <ColumnListItem id="_IDGenColumnListItem1">
+      <cells>
       
-        <Input id="_IDGenInput24"
-       value="{path: 'newCommande>/Prixtotal', type: 'sap.ui.model.type.Float'}"
-       editable="false" />
+        
 
+         
+<ComboBox id="selectArticle"
+    selectedKey="{Idarticle}"
+    items="{
+      path: '/ZCDS_article',
+      sorter: { path: 'Nomarticle' }
+    }"
+    selectionChange="onArticleSelectionChange">
+    <core:Item id="_IDGenItem1" key="{Idarticle}" text="{Nomarticle}" />
+</ComboBox>
+
+<Input id="_IDGenInput1" value="{Prixunitaire}" editable="false" />
+<Input id="_IDGenInput2" value="{Quantite}" type="Number" change="onQuantiteChange" />
+<Text id="_IDGenText4" text="{= ${Quantite} * ${Prixunitaire} }" />
+
+      </cells>
+    </ColumnListItem>
+  </items>
+</Table>
+
+<Button id="_IDGenButton" text="Ajouter un article" press="onAddArticleLine" />
+     
+     
       </f:content>
+
+    
     </f:SimpleForm>
 
     <beginButton>
