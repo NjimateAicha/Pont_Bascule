@@ -1,0 +1,93 @@
+<mvc:View
+  controllerName="projectsd.controller.vehicule"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+  xmlns:smartTable="sap.ui.comp.smarttable"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:unified="sap.ui.unified">
+
+  <Page title="Gestion des Véhicules" id="vehicule">
+    <content>
+
+      <smartFilterBar:SmartFilterBar
+        id="smartFilterBarvehicule"
+        entitySet="ZCDS_vehicule">
+        <smartFilterBar:controlConfiguration>
+          <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration2"
+            key="Idvehicule"
+            visibleInAdvancedArea="true" />
+        </smartFilterBar:controlConfiguration>
+      </smartFilterBar:SmartFilterBar>
+
+      <smartTable:SmartTable
+        id="smartTablevehicule"   
+        smartFilterId="smartFilterBarvehicule"
+        entitySet="ZCDS_vehicule"
+        tableType="ResponsiveTable"
+        useTablePersonalisation="true"
+        useVariantManagement="false"
+        header="Liste des véhicules"
+        showRowCount="true"
+        enableAutoBinding="true">
+
+        <smartTable:customToolbar>
+          <Toolbar id="_IDGenToolbar6">
+            <Title id="_IDGenTitle3" text="Véhicules" />
+            <ToolbarSpacer id="_IDGenToolbarSpacer6" />
+            <Button id="_IDGenButton5" text="Ajouter un véhicule" icon="sap-icon://add" press="onAddvehiculePress" />
+          </Toolbar>
+        </smartTable:customToolbar>
+      </smartTable:SmartTable>
+    </content>
+
+    <footer>
+      <Toolbar id="_IDGenToolbar7">
+        <ToolbarSpacer id="_IDGenToolbarSpacer7" />
+        <Button id="_IDGenButton6" text="Retour" icon="sap-icon://nav-back" press="onNavBack" />
+      </Toolbar>
+    </footer>
+  </Page>
+
+  <!-- DIALOG : Ajouter un véhicule -->
+  <Dialog
+    id="addvehiculeDialog"
+    title="Ajouter un nouveau véhicule"
+    contentWidth="30rem"
+    class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+    
+    <f:SimpleForm id="_IDGenSimpleForm"
+      editable="true"
+      layout="ResponsiveGridLayout">
+      <f:content>
+
+        <Label id="_IDGenLabel5" text="ID Véhicule *" required="true" />
+        <Input id="_IDGenInput5" value="{newvehicule>/Idvehicule}" placeholder="Entrez l'ID" maxLength="10" />
+
+        <Label id="_IDGenLabel6" text="Matricule *" required="true" />
+        <Input id="_IDGenInput6" value="{newvehicule>/Matricule}" placeholder="Entrez la matricule" maxLength="50" />
+
+        <Label id="_IDGenLabel7" text="Marque" />
+        <Input id="_IDGenInput7" value="{newvehicule>/Marque}" placeholder="Marque" maxLength="30" />
+
+        <Label id="_IDGenLabel8" text="Capacité" />
+        <Input id="_IDGenInput8" value="{newvehicule>/Capacite}" placeholder="Capacité" type="Number" />
+
+        <Label id="_IDGenLabel9" text="Unité" />
+        <Input id="_IDGenInput9" value="{newvehicule>/Qunit}" placeholder="Unité de mesure" maxLength="10" />
+
+        <Label id="_IDGenLabel27" text="ID Transporteur" />
+        <Input id="_IDGenInput25" value="{newvehicule>/Idtransporteur}" placeholder="ID Transporteur" maxLength="10" />
+
+      </f:content>
+    </f:SimpleForm>
+
+    <beginButton>
+      <Button id="_IDGenButton7" text="Enregistrer" type="Emphasized" press="onSavevehicule" />
+    </beginButton>
+    <endButton>
+      <Button id="_IDGenButton8" text="Annuler" press="onCancelvehiculeDialog" />
+    </endButton>
+  </Dialog>
+</mvc:View>

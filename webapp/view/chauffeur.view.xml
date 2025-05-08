@@ -1,0 +1,91 @@
+<mvc:View
+  controllerName="projectsd.controller.chauffeur"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+  xmlns:smartTable="sap.ui.comp.smarttable"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:unified="sap.ui.unified">
+
+  <Page title="Gestion des Chauffeurs" id="chauffeur">
+    <content>
+
+      <!-- SmartFilterBar -->
+      <smartFilterBar:SmartFilterBar
+        id="smartFilterBarChauffeur"
+        entitySet="zcds_chauffeur">
+        <smartFilterBar:controlConfiguration>
+          <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration4" key="Idchauffeur" visibleInAdvancedArea="true" />
+        </smartFilterBar:controlConfiguration>
+      </smartFilterBar:SmartFilterBar>
+
+      <!-- SmartTable -->
+      <smartTable:SmartTable
+        id="smartTableChauffeur"
+        smartFilterId="smartFilterBarChauffeur"
+        entitySet="zcds_chauffeur"
+        tableType="ResponsiveTable"
+        useTablePersonalisation="true"
+        useVariantManagement="false"
+        header="Liste des chauffeurs"
+        showRowCount="true"
+        enableAutoBinding="true">
+
+        <smartTable:customToolbar>
+          <Toolbar id="_IDGenToolbar8">
+            <Title id="_IDGenTitle4" text="Chauffeurs" />
+            <ToolbarSpacer id="_IDGenToolbarSpacer9" />
+            <Button id="_IDGenButton4" text="Ajouter un chauffeur" icon="sap-icon://add" press="onAddChauffeurPress" />
+          </Toolbar>
+        </smartTable:customToolbar>
+      </smartTable:SmartTable>
+    </content>
+
+    <footer>
+      <Toolbar id="_IDGenToolbar9">
+        <ToolbarSpacer id="_IDGenToolbarSpacer10" />
+        <Button id="_IDGenButton20" text="Retour" icon="sap-icon://nav-back" press="onNavBack" />
+      </Toolbar>
+    </footer>
+  </Page>
+
+  <!-- DIALOG : Ajouter un chauffeur -->
+  <Dialog
+    id="addChauffeurDialog"
+    title="Ajouter un nouveau chauffeur"
+    contentWidth="30rem"
+    class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+    
+    <f:SimpleForm id="_IDGenSimpleForm2" editable="true" layout="ResponsiveGridLayout">
+      <f:content>
+
+        <Label id="_IDGenLabel28" text="ID Chauffeur *" required="true" />
+        <Input id="_IDGenInput26" value="{newchauffeur>/Idchauffeur}" placeholder="Entrez l'ID" maxLength="10" />
+
+        <Label id="_IDGenLabel29" text="CIN *" required="true" />
+        <Input id="_IDGenInput27" value="{newchauffeur>/Cin}" placeholder="Entrez le CIN" maxLength="20" />
+
+        <Label id="_IDGenLabel30" text="Nom du chauffeur" />
+        <Input id="_IDGenInput28" value="{newchauffeur>/Nomchauffeur}" placeholder="Nom complet" maxLength="50" />
+
+        <Label id="_IDGenLabel31" text="Téléphone" />
+        <Input id="_IDGenInput29" value="{newchauffeur>/Telechauffeur}" placeholder="Numéro de téléphone" maxLength="15" />
+
+        <Label id="_IDGenLabel32" text="ID Transporteur" />
+        <Input id="_IDGenInput30" value="{newchauffeur>/Idtransporter}" placeholder="ID du transporteur" maxLength="10" />
+
+        <Label id="_IDGenLabel33" text="ID Véhicule" />
+        <Input id="_IDGenInput31" value="{newchauffeur>/Idvehicule}" placeholder="ID du véhicule" maxLength="10" />
+
+      </f:content>
+    </f:SimpleForm>
+
+    <beginButton>
+      <Button id="_IDGenButton21" text="Enregistrer" type="Emphasized" press="onSaveChauffeur" />
+    </beginButton>
+    <endButton>
+      <Button id="_IDGenButton22" text="Annuler" press="onCancelChauffeurDialog" />
+    </endButton>
+  </Dialog>
+</mvc:View>

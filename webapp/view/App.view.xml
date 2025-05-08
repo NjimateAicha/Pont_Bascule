@@ -17,7 +17,10 @@
           <tnt:NavigationListItem id="_IDGenNavigationListItem1" text="Articles" key="Article" icon="sap-icon://product"/>
           <tnt:NavigationListItem id="_IDGenNavigationListItem2" text="Clients" key="Client" icon="sap-icon://customer"/>
           <tnt:NavigationListItem id="_IDGenNavigationListItem3" text="Commandes" key="Commande" icon="sap-icon://sales-order"/>
-
+          <tnt:NavigationListItem id="_IDGenNavigationListItem-" text="Transporter" key="transporter"  icon="sap-icon://shipping-status" />
+           <tnt:NavigationListItem id="_IDGenNavigationListItem5" text="Vehicule" key="vehicule" icon="sap-icon://car-rental" />
+          <tnt:NavigationListItem id="_IDGenNavigationListItem6" text="Chauffeur" key="chauffeur"  icon="sap-icon://employee" />
+        
         </tnt:NavigationList>
       </tnt:SideNavigation>
     </tnt:sideContent>

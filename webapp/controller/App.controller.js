@@ -34,6 +34,15 @@ sap.ui.define([
         case "Commande":
           this.getOwnerComponent().getRouter().navTo("Commande");
           break;
+          case "transporter":
+          this.getOwnerComponent().getRouter().navTo("transporter");
+          break;
+          case "vehicule":
+          this.getOwnerComponent().getRouter().navTo("vehicule");
+          break;
+          case "chauffeur":
+            this.getOwnerComponent().getRouter().navTo("chauffeur");
+            break;
         default:
           console.warn("Clé de navigation inconnue :", sKey);
       }

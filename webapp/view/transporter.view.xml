@@ -1,0 +1,93 @@
+<mvc:View
+  controllerName="projectsd.controller.transporter"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+  xmlns:smartTable="sap.ui.comp.smarttable"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:unified="sap.ui.unified">
+
+  <!-- CONTENU PRINCIPAL -->
+  <Page title="Gestion des Tansporteurs" id="transporter">
+    <content>
+
+      <!-- SmartFilterBar -->
+      <smartFilterBar:SmartFilterBar
+        id="smartFilterBar35"
+        entitySet="zcds_transporter">
+        <smartFilterBar:controlConfiguration>
+          <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration35"
+            key="Idtransporteur"
+            visibleInAdvancedArea="true" />
+        </smartFilterBar:controlConfiguration>
+      </smartFilterBar:SmartFilterBar>
+
+      <!-- SmartTable -->
+      <smartTable:SmartTable
+        id="smartTabletrasporter"   
+        smartFilterId="smartFilterBar"
+        entitySet="zcds_transporter"
+        tableType="ResponsiveTable"
+        useTablePersonalisation="true"
+        useVariantManagement="false"
+        header="Liste des transporteurs"
+        showRowCount="true"
+        enableAutoBinding="true">
+
+        <smartTable:customToolbar>
+          <Toolbar id="_IDGenToolbar12">
+            <Title id="_IDGenTitle12" text="tansprter" />
+            <ToolbarSpacer id="_IDGenToolbarSpacer12" />
+            <Button id="_IDGenButton2" text="Ajouter un tansprter" icon="sap-icon://add" press="onAddTransporterPress" />
+          </Toolbar>
+        </smartTable:customToolbar>
+      </smartTable:SmartTable>
+          </content>
+    <footer>
+      <Toolbar id="_ID12">
+        <ToolbarSpacer id="_IDGenToolbar22" />
+        <Button id="_IDGenToolbar32" text="Retour" icon="sap-icon://nav-back" press="onNavBack" />
+      </Toolbar>
+    </footer>
+  </Page>
+
+  <!-- DIALOG : Ajouter un transporteur -->
+  <Dialog
+    id="addTransporterDialog"
+    title="Ajouter un nouveau transporteur"
+    contentWidth="30rem"
+    class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+    
+    <f:SimpleForm id="_IDGenSimpleForm1"
+      editable="true"
+      layout="ResponsiveGridLayout">
+      <f:content>
+        <Label id="_IDGenLabel" text="ID Transporteur *" required="true" />
+        <Input id="_IDGenInput" value="{newtransporter>/Idtransporteur}" placeholder="Entrez l'ID du transporteur" maxLength="10" />
+
+        <Label id="_IDGenLabel1" text="Nom Transporteur *" required="true" />
+        <Input id="_IDGenInput1" value="{newtransporter>/Nomtransporteur}" placeholder="Entrez le nom" maxLength="50" />
+
+        <Label id="_IDGenLabel2" text="Téléphone" />
+        <Input id="_IDGenInput2" value="{newtransporter>/Telephonetansporter}" placeholder="Téléphone" maxLength="15" />
+
+        <Label id="_IDGenLabel3" text="Adresse" />
+        <Input id="_IDGenInput3" value="{newtransporter>/Adressetansporter}" placeholder="Adresse" maxLength="100" />
+
+        <Label id="_IDGenLabel4" text="Type" />
+        <Input id="_IDGenInput4" value="{newtransporter>/Type}" placeholder="Type de transport" maxLength="50" />
+      </f:content>
+    </f:SimpleForm>
+
+    <beginButton>
+      <Button id="_IDGenButton" text="Enregistrer" type="Emphasized" press="onSaveTransporter" />
+    </beginButton>
+    <endButton>
+      <Button id="_IDGenButton3" text="Annuler" press="onCancelTransporterDialog" />
+    </endButton>
+  </Dialog>
+       
+
+
+</mvc:View>

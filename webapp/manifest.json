@@ -130,6 +130,27 @@
           "target": [
             "TargetCommande"
           ]
+        },
+        {
+          "name":"transporter",
+          "pattern": "transporter",
+          "target": [
+            "TargetTransporter"
+          ]
+        },
+        {
+          "name":"vehicule",
+          "pattern": "vehicule",
+          "target": [
+            "TargetVehicule"
+          ]
+        },
+        {
+          "name":"chauffeur",
+          "pattern": "chauffeur",
+          "target": [
+            "TargetChauffeur"
+          ]
         }
       ],
       "targets": {
@@ -156,6 +177,27 @@
   "TargetCommande": {
     "viewName": "Commande/Commande",
     "viewId": "Commande",
+    "type": "XML",
+    "controlId": "app",
+    "controlAggregation": "pages"
+  },
+  "TargetTransporter": {
+    "viewName": "transporter",
+    "viewId": "transporter",
+    "type": "XML",
+    "controlId": "app",
+    "controlAggregation": "pages"
+  },
+  "TargetVehicule": {
+    "viewName": "vehicule",
+    "viewId": "vehicule",
+    "type": "XML",
+    "controlId": "app",
+    "controlAggregation": "pages"
+  },
+  "TargetChauffeur": {
+    "viewName": "chauffeur",
+    "viewId": "chauffeur",
     "type": "XML",
     "controlId": "app",
     "controlAggregation": "pages"
