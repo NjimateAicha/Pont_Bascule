@@ -9,17 +9,7 @@ sap.ui.define([
         // Initialisation si besoin
       },
   
-      // onNavToClient: function () {
-      //   this.getOwnerComponent().getRouter().navTo("Client");
-      // },
-  
-      // onNavToArticle: function () {
-      //   this.getOwnerComponent().getRouter().navTo("Article");
-      // },
-  
-      // onNavToCommande: function () {
-      //   this.getOwnerComponent().getRouter().navTo("Commande");
-      // }
+      
   
     });
   });

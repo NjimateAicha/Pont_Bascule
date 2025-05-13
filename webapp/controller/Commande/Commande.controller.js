@@ -49,6 +49,21 @@ sap.ui.define([
         },
 
      
+        onCancelDialog: function () {  // Nom corrigé pour correspondre à la vue
+            this.getView().byId("addCommandeDialog").close();
+        },
+   
+        onNavBack: function () {
+            var oHistory = History.getInstance();
+            var sPreviousHash = oHistory.getPreviousHash();
+
+            if (sPreviousHash !== undefined) {
+                window.history.go(-1);
+            } else {
+                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                oRouter.navTo("RouteAccueil", {}, true);
+            }
+        },
 
         onAddCommandePress: function () {
             var oDialog = this.getView().byId("addCommandeDialog");
@@ -68,7 +83,7 @@ sap.ui.define([
                             Nomarticle: "",
                             Prixunitaire: "",
                             Quantite: "1",
-                            Prixtotal: "0"
+                            Prixtotal: ""
                         }
                     ]
                 });
@@ -81,172 +96,108 @@ sap.ui.define([
         },
         
 
-        onCancelDialog: function () {  // Nom corrigé pour correspondre à la vue
-            this.getView().byId("addCommandeDialog").close();
-        },
-//         onSaveCommande: function () {
-//             var oModel = this._oODataModel;
-//             var oView = this.getView();
-//             var oCommandeModel = oView.getModel("newCommande");
-        
-//             // Mettre la date du jour dans le modèle JSON "newCommande"
-//             var oDate = new Date();
-//             var sDateFormatted = oDate.toISOString().split("T")[0]; // format "YYYY-MM-DD"
-//             oCommandeModel.setProperty("/Datecommande", sDateFormatted);
-        
-//             var oData = oCommandeModel.getData(); // on récupère les données du modèle JSON
-        
-//             // Valider les champs obligatoires
-//             if (!oData.Idcommande || !oData.Idclient || !oData.Idarticle) {
-//                 MessageBox.error("Champs requis : ID Commande, Client, Article.");
-//                 return;
-//             }
-        
-//             // Valider et formater la quantité
-//             var quantite = parseFloat(oData.Quantite);
-//             if (isNaN(quantite) || quantite <= 0) {
-//                 MessageBox.error("Quantité invalide. Veuillez saisir un nombre positif.");
-//                 return;
-//             }
-        
-//             // Valider et parser le prix unitaire
-//             var prixUnitaire = parseFloat(oData.Prixunitaire);
-//             if (isNaN(prixUnitaire) || prixUnitaire < 0) {
-//                 MessageBox.error("Prix unitaire invalide.");
-//                 return;
-//             }
-        
-//             // Calculer le prix total
-//             var prixTotal = (quantite * prixUnitaire).toFixed(3).toString();
-        
-//             // Construire le payload
-//             var oPayload = {
-//                 Idcommande: oData.Idcommande,
-//                 Datecommande: oData.Datecommande,
-//                 Quantite: quantite.toString(),
-//                 Prixtotal: prixTotal,
-//                 Idclient: oData.Idclient,
-//                 Idarticle: oData.Idarticle
-//             };
-        
-//             console.log("Payload being sent:", JSON.stringify(oPayload));
-        
-//             var self = this;
-//             // oModel.create("/ZCDS_commande", oPayload, {
-//             //     success: function () {
-//             //         MessageToast.show("Commande enregistrée avec succès.");
-//             //         self.getView().byId("addCommandeDialog").close();
-        
-//             //         var oSmartTable = self.getView().byId("smartTableCommande");
-//             //         if (oSmartTable) {
-//             //             oSmartTable.rebindTable();
-//             //         }
-//             //     },
-//             //     error: function (oError) {
-//             //         console.error("Full error object:", oError);
-//             //         var sErrorDetails = "Erreur inconnue";
-//             //         if (oError.responseText) {
-//             //             try {
-//             //                 var oErrorResponse = JSON.parse(oError.responseText);
-//             //                 sErrorDetails = oErrorResponse.error.message.value || JSON.stringify(oErrorResponse);
-//             //             } catch (e) {
-//             //                 sErrorDetails = oError.responseText;
-//             //             }
-//             //         }
-//             //         MessageBox.error("Erreur lors de l'enregistrement de la commande: " + sErrorDetails);
-//             //     }
-//             // });
-       
-//             // Lire les données de l’article via son ID
-// oModel.read("/ZCDS_article('" + oData.Idarticle + "')", {
-//     success: function (oArticleData) {
-//         var stockDisponible = parseFloat(oArticleData.Quantitearticle);
 
-//         if (quantite > stockDisponible) {
-//             MessageBox.error("Stock insuffisant. Quantité en stock : " + stockDisponible);
-//             return;
-//         }
-
-//         // Stock suffisant, on peut créer la commande
-//         oModel.create("/ZCDS_commande", oPayload, {
-//             success: function () {
-//                 MessageToast.show("Commande enregistrée avec succès.");
-
-//                 // 🔽 Mettre à jour la quantité de l’article
-//                 var nouveauStock = stockDisponible - quantite;
-//                 var articleUpdatePayload = {
-//                     Quantitearticle: nouveauStock.toString()
-//                 };
-
-//                 oModel.update("/ZCDS_article('" + oData.Idarticle + "')", articleUpdatePayload, {
-//                     success: function () {
-//                         MessageToast.show("Stock mis à jour.");
-//                     },
-//                     error: function () {
-//                         MessageBox.error("La commande a été enregistrée, mais la mise à jour du stock a échoué.");
-//                     }
-//                 });
-
-//                 // Fermer le dialogue et rafraîchir la SmartTable
-//                 self.getView().byId("addCommandeDialog").close();
-//                 var oSmartTable = self.getView().byId("smartTableCommande");
-//                 if (oSmartTable) {
-//                     oSmartTable.rebindTable();
-//                 }
-//             },
-//             error: function (oError) {
-//                 MessageBox.error("Erreur lors de la création de la commande.");
-//             }
-//         });
-//     },
-//     error: function () {
-//         MessageBox.error("Impossible de récupérer les informations de l’article.");
-//     }
-// });
-
-//         },
-        
-        // Gestionnaire pour le changement de client
-       
        
         onSaveCommande: function () {
             const oModel = this._oODataModel;
+            oModel.setUseBatch(false);
+        
             const oCommandeModel = this.getView().getModel("newCommande");
             const oData = oCommandeModel.getData();
+            const formattedDate = new Date(oData.Datecommande).toISOString().split("T")[0];
         
-            // Validation de base
+          
             if (!oData.Idcommande || !oData.Idclient || !oData.Articles || oData.Articles.length === 0) {
-                MessageBox.error("Veuillez remplir les informations de commande et au moins un article.");
+                MessageBox.error("Veuillez remplir la commande et ajouter au moins un article.");
                 return;
             }
         
-            // Créer un tableau de payloads pour chaque article
-            const aPayloads = oData.Articles.map(article => {
-                const quantite = parseFloat(article.Quantite) || 0;
-                const prix = parseFloat(article.Prixunitaire) || 0;
-                const prixtotal = (quantite * prix).toFixed(3).toString();
-        
-                return {
-                    Idcommande: oData.Idcommande,
-                    Datecommande: oData.Datecommande,
-                    Idclient: oData.Idclient,
-                    Idarticle: article.Idarticle,
-                    Quantite: quantite.toString(),
-                    Prixtotal: prixtotal
-                };
+           
+            const seen = new Set();
+            const duplicates = oData.Articles.some(article => {
+                const key = article.Idarticle;
+                if (!key) return true; // Cas article vide
+                if (seen.has(key)) return true; // Doublon
+                seen.add(key);
+                return false;
             });
         
-            console.log("Payload complet :", JSON.stringify(aPayloads));
+            if (duplicates) {
+                MessageBox.error("Un ou plusieurs articles sont vides ou dupliqués. Veuillez corriger.");
+                return;
+            }
         
-            // Envoi (exemple avec boucle sur OData.create)
-            aPayloads.forEach(payload => {
-                oModel.create("/ZCDS_commande", payload, {
-                    success: () => MessageToast.show("Commande enregistrée !"),
-                    error: (oError) => MessageBox.error("Erreur lors de l'enregistrement.")
+           
+            let inserted = 0;
+            const total = oData.Articles.length;
+        
+            const finish = () => {
+                this.getView().byId("addCommandeDialog").close();
+                this.byId("smartTableCommande").rebindTable();
+                MessageToast.show("Commande enregistrée avec succès.");
+            };
+        
+            oData.Articles.forEach(article => {
+                const quantite = parseFloat(article.Quantite || 0);
+                const prix = parseFloat(article.Prixunitaire || 0);
+                const oEntry = {
+                
+                    Idcommande: oData.Idcommande,
+                    Datecommande: formattedDate,
+                    Idclient: oData.Idclient,
+                    Nomclient: oData.Nomclient,
+                    Adresse: oData.Adresse,
+                    Idarticle: article.Idarticle,
+                    Nomarticle: article.Nomarticle,
+                    Quantite: quantite.toString(),
+                    Prixunitaire: prix.toString(),
+                    Prixtotal: (quantite * prix).toFixed(2)
+                };
+                console.log("Article à enregistrer : ", oEntry);
+
+            // 1. Lire l'article
+oModel.read("/ZCDS_article('" + article.Idarticle + "')", {
+    success: (oArticleData) => {
+        const stockDispo = parseFloat(oArticleData.Quantitearticle);
+
+        if (quantite > stockDispo) {
+            MessageBox.error("Stock insuffisant pour l'article " + article.Nomarticle + ". Stock dispo : " + stockDispo);
+            return;
+        }
+
+        // 2. Créer la commande
+        oModel.create("/ZCDS_commande", oEntry, {
+            success: () => {
+                // 3. Mettre à jour le stock
+                const newStock = stockDispo - quantite;
+                oModel.update("/ZCDS_article('" + article.Idarticle + "')", {
+                    Quantitearticle: newStock.toString()
+                }, {
+                    success: () => {
+                        console.log("Stock mis à jour pour article : " + article.Idarticle);
+                    },
+                    error: () => {
+                        MessageToast.show("Commande enregistrée, mais échec de mise à jour du stock.");
+                    }
                 });
+
+                inserted++;
+                if (inserted === total) finish();
+            },
+            error: () => {
+                MessageBox.error("Erreur d’enregistrement d’un article.");
+            }
+        });
+    },
+    error: () => {
+        MessageBox.error("Impossible de récupérer les infos de l’article : " + article.Idarticle);
+    }
+});
+
             });
         }
-,        
+,         
+     
        
         onClientChange: function (oEvent) {
             console.log("onClientChange appelé");
@@ -274,106 +225,22 @@ sap.ui.define([
         
         },
 
-        // // Gestionnaire pour le changement d'article
-        // onArticleChange: function (oEvent) {
-        //     console.log("onArticleChange appelé");
-        //     var oSelectedItem = oEvent.getParameter("selectedItem");
-            
-        //     if (!oSelectedItem) {
-        //         console.log("Aucun élément sélectionné");
-        //         return;
-        //     }
-            
-        //     var oContext = oSelectedItem.getBindingContext();
-            
-        //     if (!oContext) {
-        //         console.log("Pas de contexte de binding");
-        //         return;
-        //     }
-            
-        //     var oArticleData = oContext.getObject();
-        //     console.log("Données article récupérées:", oArticleData);
-            
-        //     var oCommandeModel = this.getView().getModel("newCommande");
-        //     oCommandeModel.setProperty("/Idarticle", oArticleData.Idarticle);
-        //     oCommandeModel.setProperty("/Nomarticle", oArticleData.Nomarticle);
-        //     oCommandeModel.setProperty("/Prixunitaire", oArticleData.Prixunitaire);
-            
-        //     // Mise à jour du prix total
-        //     var iQuantite = parseInt(oCommandeModel.getProperty("/Quantite"), 10) || 1;
-        //     var fPrix = oArticleData.Prixunitaire || 0;
-        //     oCommandeModel.setProperty("/Prixtotal", iQuantite * fPrix);
-        // },
+      
+      
+        
 
-        // Mise à jour du prix total lors du changement de quantité
-        onQuantiteChange: function (oEvent) {
-            var iQuantite = parseInt(oEvent.getSource().getValue(), 10);
-            var oCommandeModel = this.getView().getModel("newCommande");
-            var fPrix = parseFloat(oCommandeModel.getProperty("/Prixunitaire")) || 0;
-            
-            if (!isNaN(iQuantite) && iQuantite > 0) {
-                oCommandeModel.setProperty("/Quantite", iQuantite);
-                oCommandeModel.setProperty("/Prixtotal", iQuantite * fPrix);
-            } else {
-                MessageBox.error("Quantité invalide. Veuillez saisir un nombre positif.");
-                // Réinitialiser à 1 par défaut
-                oCommandeModel.setProperty("/Quantite", "1");
-                oCommandeModel.setProperty("/Prixtotal", 1 * fPrix);
-            }
-        },
-
-        onNavBack: function () {
-            var oHistory = History.getInstance();
-            var sPreviousHash = oHistory.getPreviousHash();
-
-            if (sPreviousHash !== undefined) {
-                window.history.go(-1);
-            } else {
-                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                oRouter.navTo("RouteAccueil", {}, true);
-            }
-        },
-        
-        onDeleteCommandePress: function () {
-            const oSmartTable = this.byId("smartTableCommande");
-            const oTable = oSmartTable.getTable();
-            const aSelectedItems = oTable.getSelectedItems();
-        
-            if (!aSelectedItems.length) {
-                sap.m.MessageToast.show("Veuillez sélectionner une commande à supprimer.");
-                return;
-            }
-        
-            const oSelectedItem = aSelectedItems[0];
-            const oContext = oSelectedItem.getBindingContext();
-            const sPath = oContext.getPath();
-        
-            sap.m.MessageBox.confirm("Voulez-vous vraiment supprimer cette commande ?", {
-                onClose: function (oAction) {
-                    if (oAction === "OK") {
-                        oContext.getModel().remove(sPath, {
-                            success: function () {
-                                sap.m.MessageToast.show("Commande supprimée avec succès.");
-                            },
-                            error: function () {
-                                sap.m.MessageBox.error("Erreur lors de la suppression de la commande.");
-                            }
-                        });
-                    }
-                }
-            });
-        },
+      
         _generateNextCommandeId: function (callback) {
             var oModel = this._oODataModel;
         
-            // Assure-toi que c’est bien le nom correct de l’EntitySet exposé (ex: ZCommandeSet)
+            
             oModel.read("/ZCDS_commande", {
                 success: function (oData) {
                     var aCommandes = oData.results;
                     var maxId = 0;
         
                     aCommandes.forEach(function (commande) {
-                        var match = commande.Idcommande.match(/\d+$/); // Exemple: extrait "0004" de "C0004"
+                        var match = commande.Idcommande.match(/\d+$/); 
                         if (match) {
                             var num = parseInt(match[0], 10);
                             if (num > maxId) {
@@ -382,7 +249,7 @@ sap.ui.define([
                         }
                     });
         
-                    // Génère le nouvel ID avec format C0001, C0002, etc.
+                    
                     var nextId = "C" + String(maxId + 1).padStart(4, '0');
         
                     callback(nextId);
@@ -392,61 +259,177 @@ sap.ui.define([
                 }
             });
         }
-        ,
-       
-          onAddArticleLine: function () {
+        ,      
+        
+        onAddArticleLine: function () {
+
             var oModel = this.getView().getModel("newCommande");
+        
             var aArticles = oModel.getProperty("/Articles") || [];
+             const existingIds = aArticles.map(a => a.Idarticle);
+        
+            if (existingIds.includes("")) {
+        
+                MessageToast.show("Veuillez remplir l'article avant d'en ajouter un autre.");
+                 return;
+        
+            }
             aArticles.push({
                 Idarticle: "",
                 Nomarticle: "",
                 Prixunitaire: 0,
                 Quantite: 1
             });
-            oModel.setProperty("/Articles", aArticles);
-        },
         
+        
+        
+            oModel.setProperty("/Articles", aArticles);
+        
+        },
           
+        
+        
           calculateTotalPrix: function () {
             const aArticles = this.getView().getModel("newCommande").getProperty("/Articles") || [];
             let total = 0;
             aArticles.forEach(item => {
-              total += (item.Quantite * item.Prixunitaire);
+                total += parseFloat(item.Prixtotal || 0);
             });
-            this.getView().getModel("newCommande").setProperty("/Prixtotal", total);
-          }
+            this.getView().getModel("newCommande").setProperty("/Prixtotal", total.toFixed(2));
+        }
+        
           ,
+          
           
           onQuantiteChange: function (oEvent) {
             const oContext = oEvent.getSource().getBindingContext("newCommande");
-            const oData = oContext.getObject();
-            if (oData.Quantite > oData.StockDisponible) {
-              MessageBox.warning("Stock insuffisant pour l'article sélectionné.");
-              oData.Quantite = oData.StockDisponible;
-              this.getView().getModel("newCommande").refresh(true);
+            const oArticle = oContext.getObject();
+            const oModel = oContext.getModel();
+            const sPath = oContext.getPath();
+        
+            const quantite = parseInt(oArticle.Quantite);
+            const stock = parseInt(oArticle.StockDisponible);
+            const prix = parseFloat(oArticle.Prixunitaire) || 0;
+        
+            if (isNaN(quantite) || quantite <= 0) {
+                MessageBox.warning("Quantité invalide.");
+                oModel.setProperty(sPath + "/Quantite", 1);
+            } else if (quantite > stock) {
+                MessageBox.warning("Stock insuffisant. Stock dispo: " + stock);
+                oModel.setProperty(sPath + "/Quantite", stock);
             }
-          }
+        
+            const finalQuantite = oModel.getProperty(sPath + "/Quantite");
+            const total = finalQuantite * prix;
+        
+            oModel.setProperty(sPath + "/Prixtotal", total);
+        
+            
+            oModel.refresh(true);
+        }
+        
           ,
           onArticleSelectionChange: function (oEvent) {
             var sSelectedId = oEvent.getSource().getSelectedKey();
-            var oModel = this.getView().getModel(); // OData model
-            var oCtx = oEvent.getSource().getBindingContext("newCommande"); // ligne d'article
+            var oCtx = oEvent.getSource().getBindingContext("newCommande");
         
             if (!sSelectedId || !oCtx) return;
         
-            var sPath = "/ZCDS_article('" + sSelectedId + "')";
+            var oArticleModel = oCtx.getModel(); // ici = newCommande
+            var aArticles = oArticleModel.getProperty("/Articles");
         
-            oModel.read(sPath, {
+            // Vérifie les doublons (dans le modèle newCommande)
+            const duplicate = aArticles.filter(a => a.Idarticle === sSelectedId).length > 1;
+            if (duplicate) {
+                MessageBox.error("Cet article est déjà sélectionné.");
+                return;
+            }
+        
+            var sPath = "/ZCDS_article('" + sSelectedId + "')";
+            this._oODataModel.read(sPath, {
                 success: function (oData) {
-                    oCtx.getModel().setProperty(oCtx.getPath() + "/Prixunitaire", oData.Prixunitaire);
-                    oCtx.getModel().setProperty(oCtx.getPath() + "/Idarticle", oData.Idarticle);
-                    oCtx.getModel().setProperty(oCtx.getPath() + "/Nomarticle", oData.Nomarticle);
+                    var oArticlePath = oCtx.getPath();
+        
+                    oArticleModel.setProperty(oArticlePath + "/Prixunitaire", oData.Prixunitaire);
+                    oArticleModel.setProperty(oArticlePath + "/Idarticle", oData.Idarticle);
+                    oArticleModel.setProperty(oArticlePath + "/Nomarticle", oData.Nomarticle);
+                    oArticleModel.setProperty(oArticlePath + "/StockDisponible", oData.Quantitearticle);
+        
+                    var quantite = parseFloat(oArticleModel.getProperty(oArticlePath + "/Quantite")) || 1;
+                    oArticleModel.setProperty(oArticlePath + "/Prixtotal", quantite * oData.Prixunitaire);
                 },
                 error: function () {
-                    MessageToast.show("Impossible de charger le prix de l'article");
+                    MessageToast.show("Erreur lors du chargement de l’article.");
                 }
             });
         }
+        
+        ,
+        onDeleteCommandePress: function () {
+            var oSmartTable = this.getView().byId("smartTableCommande");
+            var oTable = oSmartTable.getTable();
+            var oSelectedItem = oTable.getSelectedItem();
+
+            if (!oSelectedItem) {
+                MessageBox.warning("Veuillez sélectionner une commande à supprimer.");
+                return;
+            }
+
+            var oContext = oSelectedItem.getBindingContext();
+            var sPath = oContext.getPath();
+
+            MessageBox.confirm("Voulez-vous supprimer cette commande ?", {
+                title: "Confirmation de suppression",
+                actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+                onClose: (sAction) => {
+                    if (sAction === MessageBox.Action.YES) {
+                        this._oODataModel.remove(sPath, {
+                            success: () => {
+                                MessageToast.show("Commande supprimée.");
+                                oSmartTable.rebindTable();
+                            },
+                            error: () => {
+                                MessageBox.error("Erreur lors de la suppression.");
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        ,
+        onUpdateCommandePress: function () {
+            var oSmartTable = this.getView().byId("smartTableCommande");
+            var oTable = oSmartTable.getTable();
+            var oSelectedItem = oTable.getSelectedItem();
+
+            if (!oSelectedItem) {
+                MessageBox.warning("Veuillez sélectionner une commande à modifier.");
+                return;
+            }
+
+            var oContext = oSelectedItem.getBindingContext();
+            var oData = oContext.getObject();
+
+            this.getView().getModel("newCommande").setData({
+                Idcommande: oData.Idcommande,
+                Datecommande: oData.Datecommande,
+                Idclient: oData.Idclient,
+                Nomclient: oData.Nomclient,
+                Adresse: oData.Adresse,
+                Articles: [
+                    {
+                        Idarticle: oData.Idarticle,
+                        Nomarticle: oData.Nomarticle,
+                        Prixunitaire: oData.Prixunitaire,
+                        Quantite: oData.Quantite,
+                        Prixtotal: oData.Prixtotal
+                    }
+                ]
+            });
+
+            this.getView().byId("addCommandeDialog").open();
+        }
+  
         
         
           

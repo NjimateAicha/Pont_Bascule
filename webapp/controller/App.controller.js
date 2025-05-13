@@ -9,12 +9,14 @@ sap.ui.define([
     onSideNavSelect: function (oEvent) {
       const sKey = oEvent.getParameter("item").getKey();
       const oRouter = this.getOwnerComponent().getRouter();
-      // console.log(oRouter);  // Debugging step
-      // console.log("Selected key:", sKey);  // Debugging step  
+   
       switch (sKey) {
-        case "Article":
+        case "Dashboard":
+         this.getOwnerComponent().getRouter().navTo("Dashboard");
           
-        this.getOwnerComponent().getRouter().navTo("Article");
+          break;
+        case "Article":
+         this.getOwnerComponent().getRouter().navTo("Article");
           
           break;
         case "Client":
@@ -32,16 +34,19 @@ sap.ui.define([
           case "chauffeur":
             this.getOwnerComponent().getRouter().navTo("chauffeur");
             break;
+            case "Bascule":
+              this.getOwnerComponent().getRouter().navTo("Bascule");
+              break;
         default:
           console.warn("Clé de navigation inconnue :", sKey);
       }
     },
 
-    // Ouvre ou ferme le menu latéral
+    
     onToggleSidebar: function () {
-      const oToolPage = this.byId("toolPage");
-      const bExpanded = oToolPage.getSideExpanded();
-      oToolPage.setSideExpanded(!bExpanded);
+      const oSidebar = this.byId("_IDGenVBox"); // C'est ta VBox sidebar
+      const bVisible = oSidebar.getVisible();
+      oSidebar.setVisible(!bVisible);
     }
 
   });

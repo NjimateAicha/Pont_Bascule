@@ -1,0 +1,46 @@
+<mvc:View controllerName="projectsd.controller.Dashboard"
+
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+
+  <Page id="dashboardPage" title="Pont Bascule - Espace Admin" class="sapUiResponsivePadding">
+    <content>
+      <VBox id="_IDGenVBox2" class="sapUiSmallMargin">
+
+        <!-- Row 1 - KPI Tiles -->
+        <HBox id="_IDGenHBox1" justifyContent="SpaceAround" class="sapUiMediumMarginBottom">
+          <GenericTile id="_IDGenGenericTile" header="Commandes" subheader="Total" class="sapUiTinyMargin tileStyle">
+            <TileContent id="_IDGenTileContent">
+              <NumericContent id="_IDGenNumericContent1" value="{dashboard>/totalCommandes}" icon="sap-icon://sales-order" valueColor="Good"/>
+            </TileContent>
+          </GenericTile>
+          <GenericTile id="_IDGenGenericTile1" header="Clients" subheader="Actifs" class="sapUiTinyMargin tileStyle">
+            <TileContent id="_IDGenTileContent1">
+              <NumericContent id="_IDGenNumericContent2" value="{dashboard>/totalClients}" icon="sap-icon://customer" valueColor="Good"/>
+            </TileContent>
+          </GenericTile>
+          <GenericTile id="_IDGenGenericTile2" header="Articles" subheader="Disponibles" class="sapUiTinyMargin tileStyle">
+            <TileContent id="_IDGenTileContent2">
+              <NumericContent id="_IDGenNumericContent3" value="{dashboard>/totalArticles}" icon="sap-icon://product" valueColor="Neutral"/>
+            </TileContent>
+          </GenericTile>
+        </HBox>
+
+        <!-- Row 2 - More KPIs -->
+        <HBox id="_IDGenHBox2" justifyContent="SpaceAround">
+          <GenericTile id="_IDGenGenericTile3" header="Quantité Commandée" subheader="Total" class="sapUiTinyMargin tileStyle">
+            <TileContent id="_IDGenTileContent3">
+              <NumericContent id="_IDGenNumericContent4" value="{dashboard>/quantiteTotale}" icon="sap-icon://shipping-status" valueColor="Critical"/>
+            </TileContent>
+          </GenericTile>
+          <GenericTile id="_IDGenGenericTile4" header="Montant Total" subheader="MAD" class="sapUiTinyMargin tileStyle">
+            <TileContent id="_IDGenTileContent4">
+              <NumericContent id="_IDGenNumericContent5" value="{dashboard>/montantTotal}" icon="sap-icon://business-objects-experience" valueColor="Good"/>
+            </TileContent>
+          </GenericTile>
+        </HBox>
+      </VBox>
+    </content>
+  </Page>
+</mvc:View>

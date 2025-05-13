@@ -105,10 +105,17 @@
       },
       "routes": [
         {
-          "name": "RouteMain",
-          "pattern": ":?query:",
+          "name": "default",
+          "pattern": "",
+          "target": ["TargetDashboard"]
+        }
+,        
+        {
+          "name": "Dashboard",
+          "pattern": "Dashboard",
+        
           "target": [
-            "TargetMain"
+            "TargetDashboard"
           ]
         },
         {
@@ -151,15 +158,24 @@
           "target": [
             "TargetChauffeur"
           ]
+        },
+        {
+          "name": "Bascule",
+          "pattern": "Bascule",
+          "target": [
+            "TargetBascule"
+          ]
         }
       ],
       "targets": {
-  "TargetMain": {
-    "id": "Main",
-    "name": "Main",
-    "controlId": "app",
-    "controlAggregation": "pages"
-  },
+        "TargetDashboard": {
+          "viewName": "Dashboard",
+          "viewId": "Dashboard",
+          "type": "XML",
+          "controlId": "app",
+          "controlAggregation": "pages"
+        },
+ 
   "TargetClient": {
     "viewId": "Client",
     "viewName": "Commande/Client",
@@ -198,6 +214,13 @@
   "TargetChauffeur": {
     "viewName": "chauffeur",
     "viewId": "chauffeur",
+    "type": "XML",
+    "controlId": "app",
+    "controlAggregation": "pages"
+  },
+  "TargetBascule": {
+    "viewName": "Bascule",
+    "viewId": "Bascule",
     "type": "XML",
     "controlId": "app",
     "controlAggregation": "pages"

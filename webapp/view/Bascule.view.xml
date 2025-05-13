@@ -1,0 +1,103 @@
+<mvc:View
+  controllerName="projectsd.controller.Bascule"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+  xmlns:smartTable="sap.ui.comp.smarttable"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:unified="sap.ui.unified">
+
+  <!-- CONTENU PRINCIPAL -->
+  <Page title="Gestion des Bascules" id="pageBascule">
+    <content>
+      <!-- SmartFilterBar -->
+      <smartFilterBar:SmartFilterBar
+        id="smartFilterBarr"
+        entitySet="ZCDS_BASCULE">
+        <smartFilterBar:controlConfiguration>
+          <smartFilterBar:ControlConfiguration id="_IDGenControlConfigurationn"
+            key="Idbascule"
+            visibleInAdvancedArea="true" />
+        </smartFilterBar:controlConfiguration>
+      </smartFilterBar:SmartFilterBar>
+
+      <!-- SmartTable -->
+      <smartTable:SmartTable
+        id="smartTableBascule"
+        smartFilterId="smartFilterBar"
+        entitySet="ZCDS_BASCULE"
+        tableType="ResponsiveTable"
+        useTablePersonalisation="true"
+        useVariantManagement="false"
+      
+        showRowCount="true"
+        enableAutoBinding="true"
+        persistencyKey="PT_BASCULE">
+
+        <smartTable:customToolbar>
+          <Toolbar id="_IDGenToolbarR">
+            <Title id="_IDGenTitleE" text="Bascule" />
+            <ToolbarSpacer id="_IDGenToolbarSpaceEr" />
+            <Button id="_IDGenButton1111" text="Ajouter Bascule" icon="sap-icon://add" press="onAddBasculePress" />
+               
+                 <Button id="btnDeleteBascule"
+  text="Supprimer"
+  icon="sap-icon://delete"
+  press="onDeleteBasculePress"
+  enabled="true" />
+
+  <Button
+    id="btnEditBascule"
+    text="Modifier"
+    icon="sap-icon://edit"
+    press="onEditBasculePress"
+    enabled="true" />
+
+          </Toolbar>
+        </smartTable:customToolbar>
+      </smartTable:SmartTable>
+    </content>
+
+    <footer>
+      <Toolbar id="_IDGenToolbar11">
+        <ToolbarSpacer id="_IDGenToolbarSpacer11" />
+        <Button id="_IDGenButton99" text="Retour" icon="sap-icon://nav-back" press="onNavBack" />
+      </Toolbar>
+    </footer>
+  </Page>
+
+
+  <Dialog
+    id="addBasculeDialog"
+    title="Ajouter Bascule"
+    contentWidth="30rem"
+    class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+    
+    <f:SimpleForm
+      id="formAddBascule"
+      editable="true"
+      layout="ResponsiveGridLayout">
+      <f:content>
+        <Label id="_IDGenLabel100" text="ID Bascule *" required="true" />
+        <Input id="_IDGenInputt10" value="{newBascule>/Idbascule}" placeholder="Entrez l'ID du bascule" maxLength="10" />
+
+        <Label id="_IDGenLabel111" text="Poids *" required="true" />
+       <Input id="_IDGenInput110" value="{newBascule>/Poids}" placeholder="Entrez le poids du bascule" maxLength="10" />
+
+        <Label id="_IDGenLabel112" text="Time" />
+      <Input id="_IDGenInput1110" value="{newBascule>/Time}" placeholder="Entrez Time du bascule" maxLength="10" />
+
+  
+      </f:content>
+    </f:SimpleForm>
+
+    <beginButton>
+      <Button id="_IDGenButton110" text="Enregistrer" type="Emphasized" press="onSaveBascule" />
+    </beginButton>
+    <endButton>
+      <Button id="_IDGenButton111" text="Annuler" press="onCancelDialog" />
+    </endButton>
+  </Dialog>
+
+</mvc:View>
