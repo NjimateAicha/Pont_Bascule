@@ -27,16 +27,20 @@
         entitySet="zcds_chauffeur"
         tableType="ResponsiveTable"
         useTablePersonalisation="true"
-        useVariantManagement="false"
+        useVariantManagement="true"
         header="Liste des chauffeurs"
         showRowCount="true"
-        enableAutoBinding="true">
+        enableAutoBinding="true"
+       
+        > 
 
         <smartTable:customToolbar>
           <Toolbar id="_IDGenToolbar8">
             <Title id="_IDGenTitle4" text="Chauffeurs" />
             <ToolbarSpacer id="_IDGenToolbarSpacer9" />
             <Button id="_IDGenButton4" text="Ajouter un chauffeur" icon="sap-icon://add" press="onAddChauffeurPress" />
+          <Button id="editChauffeurBtn" text="Modifier" icon="sap-icon://edit" press="onEditChauffeurPress" />
+<Button id="deleteChauffeurBtn" text="Supprimer" icon="sap-icon://delete" press="onDeleteChauffeurPress" />
           </Toolbar>
         </smartTable:customToolbar>
       </smartTable:SmartTable>
@@ -72,11 +76,65 @@
         <Label id="_IDGenLabel31" text="Téléphone" />
         <Input id="_IDGenInput29" value="{newchauffeur>/Telechauffeur}" placeholder="Numéro de téléphone" maxLength="15" />
 
-        <Label id="_IDGenLabel32" text="ID Transporteur" />
-        <Input id="_IDGenInput30" value="{newchauffeur>/Idtransporter}" placeholder="ID du transporteur" maxLength="10" />
 
-        <Label id="_IDGenLabel33" text="ID Véhicule" />
-        <Input id="_IDGenInput31" value="{newchauffeur>/Idvehicule}" placeholder="ID du véhicule" maxLength="10" />
+
+
+        <Label id="_IDGenLabel127" text="name Transporteur" />
+<ComboBox
+  id="comboTransporteur2"
+  selectedKey="{newchauffeur>/Idtransporter}"
+  items="{
+    path: 'transporteur>/results',
+    sorter: { path: 'Idtransporter' }
+  }"
+  placeholder="Sélectionnez un transporteur">
+  <core:Item id="_IDGenItem70" key="{transporteur>Idtransporteur}" text="{transporteur>Nomtransporteur}" />
+</ComboBox>
+
+
+
+
+      <!-- <Label id="_IDGenLabel211" text="ID Transporteur" />
+<ComboBox
+  id="comboTransporteur1"
+  selectedKey="{newchauffeur>/Idtransporter}"
+  items="{
+    path: 'transporteur>/results',
+    sorter: { path: 'Idtransporter' }
+  }"
+  placeholder="Sélectionnez un transporteur">
+  <core:Item id="_IDGenItem71" key="{transporteur>Idtransporteur}" text="{transporteur>Idtransporteur}" />
+</ComboBox> -->
+
+
+
+
+<Label id="_IDGenLabel215" text="Matricule Vehicule" />
+<ComboBox
+  id="comboVEHICULE5"
+  selectedKey="{newchauffeur>/Idvehicule}"
+  items="{
+    path: 'vehicule>/results',
+    sorter: { path: 'Idvehicule' }
+  }"
+  placeholder="Sélectionnez un véhicule">
+  <core:Item id="_IDGenItem75" key="{vehicule>Idvehicule}" text="{vehicule>Matricule}" />
+</ComboBox>
+
+
+
+
+<!-- <Label id="_IDGenLabel214" text="ID Vehicule" />
+<ComboBox
+  id="comboVEHICULE1"
+  selectedKey="{newchauffeur>/Idvehicule}"
+  items="{
+    path: 'vehicule>/results',
+    sorter: { path: 'Idvehicule' }
+  }"
+  placeholder="Sélectionnez un véhicule">
+  <core:Item id="_IDGenItem72" key="{vehicule>Idvehicule}" text="{vehicule>Idvehicule}" />
+</ComboBox> -->
 
       </f:content>
     </f:SimpleForm>

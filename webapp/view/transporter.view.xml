@@ -6,7 +6,8 @@
   xmlns:smartTable="sap.ui.comp.smarttable"
   xmlns:core="sap.ui.core"
   xmlns:f="sap.ui.layout.form"
-  xmlns:unified="sap.ui.unified">
+  xmlns:unified="sap.ui.unified"
+  xmlns:table="sap.ui.table">
 
   <!-- CONTENU PRINCIPAL -->
   <Page title="Gestion des Tansporteurs" id="transporter">
@@ -35,13 +36,21 @@
         showRowCount="true"
         enableAutoBinding="true">
 
+
+
         <smartTable:customToolbar>
           <Toolbar id="_IDGenToolbar12">
             <Title id="_IDGenTitle12" text="tansprter" />
             <ToolbarSpacer id="_IDGenToolbarSpacer12" />
             <Button id="_IDGenButton2" text="Ajouter un tansprter" icon="sap-icon://add" press="onAddTransporterPress" />
+            <Button id="editTransporterBtn" text="Modifier" icon="sap-icon://edit" press="onEditTransporterPress" enabled="true" />
+            <Button id="deleteTransporterBtn" text="Supprimer" icon="sap-icon://delete" press="onDeleteTransporterPress" enabled="true" />
           </Toolbar>
         </smartTable:customToolbar>
+
+
+
+        
       </smartTable:SmartTable>
           </content>
     <footer>
@@ -63,8 +72,52 @@
       editable="true"
       layout="ResponsiveGridLayout">
       <f:content>
-        <Label id="_IDGenLabel" text="ID Transporteur *" required="true" />
-        <Input id="_IDGenInput" value="{newtransporter>/Idtransporteur}" placeholder="Entrez l'ID du transporteur" maxLength="10" />
+        <!-- <Label id="_IDGenLabel" text="ID Transporteur *" required="true" />
+        <Input id="_IDGenInput" value="{newtransporter>/Idtransporteur}" placeholder="Entrez l'ID du transporteur" maxLength="10" /> -->
+
+
+        <Label id="_IDGenLabel24" text="Type *" required="true" />
+        <Select id="typeSelect" selectedKey="{newtransporter>/Type}" change="onTypeChange">
+        <items>
+            <core:Item id="_IDGenItem6" key="" text="Choisir le type de transporteur"  enabled="false" />
+            <core:Item id="_IDGenItem12" key="intern" text="Interne" />
+            <core:Item id="_IDGenItem13" key="extern" text="Externe" />
+            <core:Item id="_IDGenItem4" key="client" text="Client" />
+        </items>
+        </Select>
+
+
+<Label id="clientIdLabel" text="ID Client" visible="false" />
+
+<ComboBox 
+    id="clientIdComboBox"
+    visible="false"
+    placeholder="Sélectionner un client"
+    selectedKey="{newtransporter>/Idclient}"
+    selectionChange=".onClientSelected"
+    items="{
+        path: '/ZCDS_Clientt',
+        sorter: { path: 'Idclient' }
+    }">
+    <core:Item id="_IDGenItem5" key="{Idclient}" text="{Idclient}" />
+</ComboBox>
+
+<Label id="clientIdLabel4" text="NAME Client" visible="false" />
+<ComboBox 
+    id="clientNameComboBox"
+    visible="false"
+    placeholder="Sélectionner un client"
+    selectedKey="{newtransporter>/Idclient}"
+    selectionChange=".onClientSelected"
+    items="{
+        path: '/ZCDS_Clientt',
+        sorter: { path: 'Idclient' }
+    }">
+    <core:Item id="_IDGenItemname" key="{Idclient}" text="{Nomclient}" />
+</ComboBox>
+
+<Label id="clientIdLabel2" text="Nom Client *" visible="false" />
+
 
         <Label id="_IDGenLabel1" text="Nom Transporteur *" required="true" />
         <Input id="_IDGenInput1" value="{newtransporter>/Nomtransporteur}" placeholder="Entrez le nom" maxLength="50" />
@@ -75,8 +128,7 @@
         <Label id="_IDGenLabel3" text="Adresse" />
         <Input id="_IDGenInput3" value="{newtransporter>/Adressetansporter}" placeholder="Adresse" maxLength="100" />
 
-        <Label id="_IDGenLabel4" text="Type" />
-        <Input id="_IDGenInput4" value="{newtransporter>/Type}" placeholder="Type de transport" maxLength="50" />
+
       </f:content>
     </f:SimpleForm>
 

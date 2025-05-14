@@ -37,6 +37,9 @@
             <Title id="_IDGenTitle3" text="Véhicules" />
             <ToolbarSpacer id="_IDGenToolbarSpacer6" />
             <Button id="_IDGenButton5" text="Ajouter un véhicule" icon="sap-icon://add" press="onAddvehiculePress" />
+          <Button id="editVehiculeBtn" text="Modifier" icon="sap-icon://edit" press="onEditVehiculePress" enabled="true" />
+<Button id="deleteVehiculeBtn" text="Supprimer" icon="sap-icon://delete" press="onDeleteVehiculePress" enabled="true" />
+
           </Toolbar>
         </smartTable:customToolbar>
       </smartTable:SmartTable>
@@ -76,9 +79,31 @@
 
         <Label id="_IDGenLabel9" text="Unité" />
         <Input id="_IDGenInput9" value="{newvehicule>/Qunit}" placeholder="Unité de mesure" maxLength="10" />
-
+<!-- 
         <Label id="_IDGenLabel27" text="ID Transporteur" />
-        <Input id="_IDGenInput25" value="{newvehicule>/Idtransporteur}" placeholder="ID Transporteur" maxLength="10" />
+<ComboBox
+  id="comboTransporteur"
+  selectedKey="{newvehicule>/Idtransporteur}"
+  items="{
+    path: 'transporteur>/results',
+    sorter: { path: 'Idtransporteur' }
+  }"
+  placeholder="Sélectionnez un transporteur">
+  <core:Item id="_IDGenItem7" key="{transporteur>Idtransporteur}" text="{transporteur>Idtransporteur}" />
+</ComboBox> -->
+
+
+        <Label id="_IDGenLabel027" text="name Transporteur" />
+<ComboBox
+  id="comboTransporteur0"
+  selectedKey="{newvehicule>/Idtransporteur}"
+  items="{
+    path: 'transporteur>/results',
+    sorter: { path: 'Idtransporteur' }
+  }"
+  placeholder="Sélectionnez un transporteur">
+  <core:Item id="_IDGenItem07" key="{transporteur>Idtransporteur}" text="{transporteur>Nomtransporteur}" />
+</ComboBox>
 
       </f:content>
     </f:SimpleForm>

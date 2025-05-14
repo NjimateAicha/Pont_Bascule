@@ -10,23 +10,43 @@ sap.ui.define([
     return Controller.extend("projectsd.controller.vehicule", {
 
         onInit: function () {
-            // Initialisation du modèle JSON pour le formulaire d'ajout
             var oVehiculeModel = new JSONModel({
                 Idvehicule: "",
                 Matricule: "",
                 Marque: "",
-                Capacite: null,
+                Capacite: "",
                 Qunit: "",
                 Idtransporteur: ""
             });
             this.getView().setModel(oVehiculeModel, "newvehicule");
-
-            // Récupérer le modèle OData
+        
             this._oODataModel = this.getOwnerComponent().getModel();
-
-            // Configuration de la SmartTable
-            this._setupSmartTable();
+        
+            var oSmartTable = this.byId("smartTablevehicule");
+            if (oSmartTable) {
+                oSmartTable.attachInitialise(() => {
+                    const oTable = oSmartTable.getTable();
+                    if (oTable.setMode) {
+                        oTable.setMode("SingleSelectMaster");
+                    }
+                });
+            }
+        
+            // ✅ Définir `that` ici
+            var that = this;
+        
+            // Charger les transporteurs dans un modèle JSON
+            this._oODataModel.read("/zcds_transporter", {
+                success: function (oData) {
+                    var oTransporteurModel = new JSONModel(oData);
+                    that.getView().setModel(oTransporteurModel, "transporteur");
+                },
+                error: function () {
+                    MessageBox.error("Erreur lors du chargement des transporteurs.");
+                }
+            });
         },
+        
 
         _setupSmartTable: function () {
             var oSmartTable = this.getView().byId("smartTablevehicule");
@@ -35,19 +55,7 @@ sap.ui.define([
             }
         },
 
-        onAddvehiculePress: function () {
-            // Réinitialise le modèle pour éviter les anciennes données
-            this.getView().getModel("newvehicule").setData({
-                Idvehicule: "",
-                Matricule: "",
-                Marque: "",
-                Capacite: null,
-                Qunit: "",
-                Idtransporteur: ""
-            });
-
-            this.getView().byId("addvehiculeDialog").open();
-        },
+       
 
         onCancelvehiculeDialog: function () {
             this.getView().byId("addvehiculeDialog").close();
@@ -55,27 +63,98 @@ sap.ui.define([
 
         onSavevehicule: function () {
             var oModel = this._oODataModel;
-            var oNewVehicule = this.getView().getModel("newvehicule").getData();
+            var oData = Object.assign({}, this.getView().getModel("newvehicule").getData());
 
-            // Validation simple
-            if (!oNewVehicule.Idvehicule || !oNewVehicule.Matricule) {
-                MessageBox.warning("Les champs obligatoires ne sont pas remplis.");
-                return;
+
+
+              
+            var sMATRICULE = oData.Matricule;
+            var oMATRICULERegex = /^\d{2}-(?:[a-zA-Zء-ي])-\d{5}$/; // 2 chiffres - caractère - 5 chiffres
+        
+            if (!oMATRICULERegex.test(sMATRICULE)) {
+                MessageBox.error("Le MATRICULE n'est pas valide.");
+                return; // Stop save process
             }
+        
+            if (this._bEditMode && this._sEditPath) {
+                oModel.update(this._sEditPath, oData, {
+                    success: () => {
+                        MessageToast.show("Véhicule modifié avec succès !");
+                        oModel.refresh();
+                    },
+                    error: () => {
+                        MessageBox.error("Erreur lors de la modification du véhicule.");
+                    }
+                });
+            } else {
+                oModel.create("/ZCDS_vehicule", oData, {
+                    success: () => {
+                        MessageToast.show("Véhicule ajouté avec succès !");
+                        oModel.refresh();
+                    },
+                    error: () => {
+                        MessageBox.error("Erreur lors de l'ajout du véhicule.");
+                    }
+                });
+            }
+        
+            this.getView().byId("addvehiculeDialog").close();
+            this._bEditMode = false;
+            this._sEditPath = null;
+        
+            this.getView().getModel("newvehicule").setData({
+                Idvehicule: "",
+                Matricule: "",
+                Marque: "",
+                Capacite: "",
+                Qunit: "",
+                Idtransporteur: ""
+            });
+        },
+        onCancelvehiculeDialog: function () {
+            this.getView().byId("addvehiculeDialog").close();
+            this._bEditMode = false;
+            this._sEditPath = null;
+        },
+        onAddvehiculePress: function () {
+            var that = this;
+        
+            // Lire les véhicules existants
+            this._oODataModel.read("/ZCDS_vehicule", {
+                success: function (oData) {
+                    var aVehicules = oData.results || [];
+                    var maxId = 0;
+        
+                    aVehicules.forEach(function (veh) {
+                        var id = parseInt(veh.Idvehicule, 10); // Assurez-vous que l'ID est traité comme un entier
+                        if (!isNaN(id) && id > maxId) {
+                            maxId = id;
+                        }
+                    });
+                    // Générer le nouvel ID
+                    var nextId = maxId + 1; // Incrémenter de 1
+                    var idchar = nextId.toString();
 
-            // Création dans le backend
-            oModel.create("/ZCDS_vehicule", oNewVehicule, {
-                success: function () {
-                    MessageToast.show("Véhicule ajouté avec succès !");
+                    // Remplir le modèle avec l'ID généré
+                    that.getView().getModel("newvehicule").setData({
+                        Idvehicule: idchar,
+                        Matricule: "",
+                        Marque: "",
+                        Capacite: null,
+                        Qunit: "",
+                        Idtransporteur: ""
+                    });
+        
+                    // Ouvrir le dialog
+                    that.getView().byId("addvehiculeDialog").open();
+                    that._bEditMode = false; // mode création
                 },
-                error: function (oError) {
-                    MessageBox.error("Erreur lors de l'ajout du véhicule.");
-                    console.error("Erreur backend :", oError);
+                error: function () {
+                    MessageBox.error("Erreur lors du chargement des véhicules existants.");
                 }
             });
-
-            this.getView().byId("addvehiculeDialog").close();
         },
+        
 
         onNavBack: function () {
             var oHistory = History.getInstance();
@@ -86,7 +165,58 @@ sap.ui.define([
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                 oRouter.navTo("RouteView1", {}, true);
             }
+        },
+        onEditVehiculePress: function () {
+            var oSmartTable = this.getView().byId("smartTablevehicule");
+            var oTable = oSmartTable.getTable();
+            var oSelectedItem = oTable.getSelectedItem();
+        
+            if (!oSelectedItem) {
+                MessageBox.warning("Veuillez sélectionner un véhicule à modifier.");
+                return;
+            }
+        
+            var oContext = oSelectedItem.getBindingContext();
+            var oVehiculeData = oContext.getObject();
+        
+            this.getView().getModel("newvehicule").setData(Object.assign({}, oVehiculeData));
+        
+            this._bEditMode = true;
+            this._sEditPath = oContext.getPath();
+        
+            this.byId("addvehiculeDialog").open();
+        },
+        onDeleteVehiculePress: function () {
+            var oSmartTable = this.getView().byId("smartTablevehicule");
+            var oTable = oSmartTable.getTable();
+            var oSelectedItem = oTable.getSelectedItem();
+        
+            if (!oSelectedItem) {
+                MessageBox.warning("Veuillez sélectionner un véhicule à supprimer.");
+                return;
+            }
+        
+            var oContext = oSelectedItem.getBindingContext();
+            var sPath = oContext.getPath();
+        
+            MessageBox.confirm("Voulez-vous vraiment supprimer ce véhicule ?", {
+                onClose: (sAction) => {
+                    if (sAction === MessageBox.Action.OK) {
+                        this._oODataModel.remove(sPath, {
+                            success: () => {
+                                MessageToast.show("Véhicule supprimé avec succès.");
+                                this._oODataModel.refresh();
+                            },
+                            error: () => {
+                                MessageBox.error("Erreur lors de la suppression.");
+                            }
+                        });
+                    }
+                }
+            });
         }
+        
+        
 
     });
 });
