@@ -80,13 +80,13 @@
       layout="ResponsiveGridLayout">
       <f:content>
         <Label id="_IDGenLabel100" text="ID Bascule *" required="true" />
-        <Input id="_IDGenInputt10" value="{newBascule>/Idbascule}" placeholder="Entrez l'ID du bascule" maxLength="10" />
+        <Input id="_IDGenInputt10" value="{newBascule>/Idbascule}" placeholder="Entrez l'ID du bascule" maxLength="10"  editable="false" />
 
-        <Label id="_IDGenLabel111" text="Poids *" required="true" />
-       <Input id="_IDGenInput110" value="{newBascule>/Poids}" placeholder="Entrez le poids du bascule" maxLength="10" />
+        <Label id="_IDGenLabel111" text="PoidsTare *" required="true" />
+       <Input id="_IDGenInput110" value="{newBascule>/PoidsTare}" placeholder="Entrez le Poids Tare du bascule" maxLength="10" />
 
-        <Label id="_IDGenLabel112" text="Time" />
-      <Input id="_IDGenInput1110" value="{newBascule>/Time}" placeholder="Entrez Time du bascule" maxLength="10" />
+        <Label id="_IDGenLabel112" text="Poidsbrut" />
+      <Input id="_IDGenInput1110" value="{newBascule>/Poidsbrut}" placeholder="Entrez le Poids Brute Brute  du bascule" maxLength="10" />
 
   
       </f:content>

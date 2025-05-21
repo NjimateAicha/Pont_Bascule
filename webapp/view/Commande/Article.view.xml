@@ -82,7 +82,7 @@
       layout="ResponsiveGridLayout">
       <f:content>
         <Label id="_IDGenLabel15" text="ID Article *" required="true" />
-        <Input id="_IDGenInput15" value="{newArticle>/Idarticle}" placeholder="ID" />
+        <Input id="_IDGenInput15" value="{newArticle>/Idarticle}" placeholder="ID" enabled="false" />
 
         <Label id="_IDGenLabel16" text="Nom de l'article *" required="true" />
         <Input id="_IDGenInput16" value="{newArticle>/Nomarticle}" placeholder="Nom" />

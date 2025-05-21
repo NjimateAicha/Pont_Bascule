@@ -37,6 +37,7 @@ sap.ui.define([
             case "Bascule":
               this.getOwnerComponent().getRouter().navTo("Bascule");
               break;
+              
         default:
           console.warn("Clé de navigation inconnue :", sKey);
       }

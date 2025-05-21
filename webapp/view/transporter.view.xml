@@ -33,14 +33,15 @@
         useTablePersonalisation="true"
         useVariantManagement="true"
         header="Liste des transporteurs"
-        showRowCount="true"
+        showRowCount="false"
+        
         enableAutoBinding="true">
 
 
 
         <smartTable:customToolbar>
           <Toolbar id="_IDGenToolbar12">
-            <Title id="_IDGenTitle12" text="tansprter" />
+          
             <ToolbarSpacer id="_IDGenToolbarSpacer12" />
             <Button id="_IDGenButton2" text="Ajouter un tansprter" icon="sap-icon://add" press="onAddTransporterPress" />
             <Button id="editTransporterBtn" text="Modifier" icon="sap-icon://edit" press="onEditTransporterPress" enabled="true" />
@@ -80,8 +81,8 @@
         <Select id="typeSelect" selectedKey="{newtransporter>/Type}" change="onTypeChange">
         <items>
             <core:Item id="_IDGenItem6" key="" text="Choisir le type de transporteur"  enabled="false" />
-            <core:Item id="_IDGenItem12" key="intern" text="Interne" />
-            <core:Item id="_IDGenItem13" key="extern" text="Externe" />
+            <core:Item id="_IDGenItem12" key="interne" text="Interne" />
+            <core:Item id="_IDGenItem13" key="externe" text="Externe" />
             <core:Item id="_IDGenItem4" key="client" text="Client" />
         </items>
         </Select>

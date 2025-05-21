@@ -51,12 +51,12 @@ sap.ui.define([
             // Enable/disable the Edit and Delete buttons based on selection
             var oEditButton = oView.byId("editTransporterBtn");
             var oDeleteButton = oView.byId("deleteTransporterBtn");
-            console.log("aaaa");
+        
 
             if (aSelectedContexts.length === 1) {
                 oEditButton.setEnabled(true);
                 oDeleteButton.setEnabled(true);
-                console.log("aaaa");
+               
             } else {
                 oEditButton.setEnabled(false);
                 oDeleteButton.setEnabled(false);
@@ -72,7 +72,7 @@ sap.ui.define([
             var oModel = oView.getModel("newtransporter");
         
             var bIsClient = selectedKey === "client";
-            var bIsIntern = selectedKey === "intern";
+            var bIsIntern = selectedKey === "interne";
         
             // Show or hide the client ID field
             oView.byId("clientIdLabel").setVisible(bIsClient);
