@@ -224,6 +224,13 @@
     "type": "XML",
     "controlId": "app",
     "controlAggregation": "pages"
+  },
+  "TargetLivraisonDetails": {
+    "viewName": "LivraisonDetails",
+    "viewId": "LivraisonDetails",
+    "type": "XML",
+    "controlId": "app",
+    "controlAggregation": "pages"
   }
 }
     },

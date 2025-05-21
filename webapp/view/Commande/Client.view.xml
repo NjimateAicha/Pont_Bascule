@@ -80,7 +80,7 @@
       layout="ResponsiveGridLayout">
       <f:content>
         <Label id="_IDGenLabel10" text="ID Client *" required="true" />
-        <Input id="_IDGenInput10" value="{newClient>/Idclient}" placeholder="Entrez l'ID du client" maxLength="10" />
+        <Input id="_IDGenInput10" value="{newClient>/Idclient}" placeholder="Entrez l'ID du client" maxLength="10"  enabled="false"/>
 
         <Label id="_IDGenLabel11" text="Nom Client *" required="true" />
         <Input id="_IDGenInput11" value="{newClient>/Nomclient}" placeholder="Entrez le nom du client" maxLength="50" />

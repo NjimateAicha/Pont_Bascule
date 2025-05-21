@@ -29,12 +29,12 @@
         useTablePersonalisation="true"
         useVariantManagement="false"
         header="Liste des véhicules"
-        showRowCount="true"
+        showRowCount="false"
         enableAutoBinding="true">
 
         <smartTable:customToolbar>
           <Toolbar id="_IDGenToolbar6">
-            <Title id="_IDGenTitle3" text="Véhicules" />
+          
             <ToolbarSpacer id="_IDGenToolbarSpacer6" />
             <Button id="_IDGenButton5" text="Ajouter un véhicule" icon="sap-icon://add" press="onAddvehiculePress" />
           <Button id="editVehiculeBtn" text="Modifier" icon="sap-icon://edit" press="onEditVehiculePress" enabled="true" />
@@ -66,7 +66,7 @@
       <f:content>
 
         <Label id="_IDGenLabel5" text="ID Véhicule *" required="true" />
-        <Input id="_IDGenInput5" value="{newvehicule>/Idvehicule}" placeholder="Entrez l'ID" maxLength="10" />
+        <Input id="_IDGenInput5" value="{newvehicule>/Idvehicule}" placeholder="Entrez l'ID" maxLength="10" enabled="false" />
 
         <Label id="_IDGenLabel6" text="Matricule *" required="true" />
         <Input id="_IDGenInput6" value="{newvehicule>/Matricule}" placeholder="Entrez la matricule" maxLength="50" />

@@ -87,7 +87,7 @@ initiallyVisibleFields="Idcommande,Idclient,Nomclient,Adresse,Prixtotal,Datecomm
       layout="ResponsiveGridLayout">
       <f:content>
         <Label id="_IDGenLabel19" text="ID Commande *" required="true" />
-        <Input id="_IDGenInput19"  value="{newCommande>/Idcommande}" placeholder="Entrez l'ID de la commande" maxLength="10" />
+        <Input id="_IDGenInput19"  value="{newCommande>/Idcommande}" placeholder="Entrez l'ID de la commande" maxLength="10" enabled="false" />
 
         <Label id="_IDGenLabel20" text="Client *" required="true" />
   

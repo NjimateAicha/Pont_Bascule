@@ -29,14 +29,14 @@
         useTablePersonalisation="true"
         useVariantManagement="true"
         header="Liste des chauffeurs"
-        showRowCount="true"
+        showRowCount="false"
         enableAutoBinding="true"
        
         > 
 
         <smartTable:customToolbar>
           <Toolbar id="_IDGenToolbar8">
-            <Title id="_IDGenTitle4" text="Chauffeurs" />
+           
             <ToolbarSpacer id="_IDGenToolbarSpacer9" />
             <Button id="_IDGenButton4" text="Ajouter un chauffeur" icon="sap-icon://add" press="onAddChauffeurPress" />
           <Button id="editChauffeurBtn" text="Modifier" icon="sap-icon://edit" press="onEditChauffeurPress" />
@@ -65,7 +65,7 @@
       <f:content>
 
         <Label id="_IDGenLabel28" text="ID Chauffeur *" required="true" />
-        <Input id="_IDGenInput26" value="{newchauffeur>/Idchauffeur}" placeholder="Entrez l'ID" maxLength="10" />
+        <Input id="_IDGenInput26" value="{newchauffeur>/Idchauffeur}" placeholder="Entrez l'ID" maxLength="10" enabled="false"/>
 
         <Label id="_IDGenLabel29" text="CIN *" required="true" />
         <Input id="_IDGenInput27" value="{newchauffeur>/Cin}" placeholder="Entrez le CIN" maxLength="20" />

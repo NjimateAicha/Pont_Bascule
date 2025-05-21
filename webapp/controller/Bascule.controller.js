@@ -11,8 +11,8 @@ sap.ui.define([
             onInit: function () {
                 var oBasculeModel = new JSONModel({
                     Idbascule: "",
-                    Poids: "",
-                    Time: ""
+                    PoidsTare: "",
+                    Poidsbrut: ""
                 });
                 this.getView().setModel(oBasculeModel, "newBascule");
     
@@ -23,7 +23,7 @@ sap.ui.define([
             _setupSmartTable: function () {
                 var oSmartTable = this.getView().byId("smartTableBascule");
                 if (oSmartTable) {
-                    oSmartTable.setInitiallyVisibleFields("Idbascule,Poids,Time");
+                    oSmartTable.setInitiallyVisibleFields("Idbascule,PoidsTare,Poidsbrut");
                     oSmartTable.attachInitialise(() => {
                         const oTable = oSmartTable.getTable();
                         if (oTable.setMode) {
@@ -40,10 +40,10 @@ sap.ui.define([
             var oModel = this.getView().getModel("newBascule");
             oModel.setData({
                 Idbascule: nextId,
-                 Poids: "",
-                  Time: ""
+                PoidsTare: "",
+                Poidsbrut: ""
             });
-    
+            console.log("Poid :", oModel.getData());
             if (oDialog) {
                 this.getView().addDependent(oDialog);
                 oDialog.open();
@@ -55,9 +55,12 @@ sap.ui.define([
                 var oModel = this._oODataModel;
                 var oView = this.getView();
                 var oNewData = oView.getModel("newBascule").getData();
+    // Supprimer toute propriété erronée
+delete oNewData.Poids;
+
                 var oSmartTable = oView.byId("smartTableBascule");
     
-                if (!oNewData.Idbascule || !oNewData.Poids) {
+                if (!oNewData.Idbascule || !oNewData.PoidsTare) {
                     MessageBox.error("Veuillez remplir les champs obligatoires.");
                     return;
                 }
@@ -79,6 +82,7 @@ sap.ui.define([
                         }
                     });
                 } else {
+                    console.log("data", oNewData);;
                     oModel.create("/ZCDS_BASCULE", oNewData, {
                         success: () => {
                             sap.ui.core.BusyIndicator.hide();
@@ -153,8 +157,8 @@ sap.ui.define([
     
                 this.getView().getModel("newBascule").setData({
                     Idbascule: oData.Idbascule,
-                    Poids: oData.Poids,
-                    Time: oData.Time
+                    PoidsTare: oData.PoidsTare,
+                    Poidsbrut: oData.Poidsbrut
                 });
     
                 this._sEditPath = oContext.getPath();
@@ -200,8 +204,8 @@ sap.ui.define([
         // Réinitialiser le modèle pour éviter de garder les anciennes données
         this.getView().getModel("newBascule").setData({
             Idbascule: "",
-            Poids: "",
-            Time: ""
+            PoidsTare: "",
+            Poidsbrut: ""
         });
     
         // Réinitialiser le mode édition
