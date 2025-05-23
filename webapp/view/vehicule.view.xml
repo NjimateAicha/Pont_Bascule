@@ -36,7 +36,7 @@
           <Toolbar id="_IDGenToolbar6">
           
             <ToolbarSpacer id="_IDGenToolbarSpacer6" />
-            <Button id="_IDGenButton5" text="Ajouter un véhicule" icon="sap-icon://add" press="onAddvehiculePress" />
+            <Button id="_IDGenButton5" text="Ajouter" icon="sap-icon://add" press="onAddvehiculePress" />
           <Button id="editVehiculeBtn" text="Modifier" icon="sap-icon://edit" press="onEditVehiculePress" enabled="true" />
 <Button id="deleteVehiculeBtn" text="Supprimer" icon="sap-icon://delete" press="onDeleteVehiculePress" enabled="true" />
 

@@ -39,7 +39,7 @@
           <Toolbar id="_IDGenToolbarR">
             <Title id="_IDGenTitleE" text="Bascule" />
             <ToolbarSpacer id="_IDGenToolbarSpaceEr" />
-            <Button id="_IDGenButton1111" text="Ajouter Bascule" icon="sap-icon://add" press="onAddBasculePress" />
+            <Button id="_IDGenButton1111" text="Ajouter" icon="sap-icon://add" press="onAddBasculePress" />
                
                  <Button id="btnDeleteBascule"
   text="Supprimer"

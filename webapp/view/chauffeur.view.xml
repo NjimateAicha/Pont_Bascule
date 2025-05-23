@@ -38,7 +38,7 @@
           <Toolbar id="_IDGenToolbar8">
            
             <ToolbarSpacer id="_IDGenToolbarSpacer9" />
-            <Button id="_IDGenButton4" text="Ajouter un chauffeur" icon="sap-icon://add" press="onAddChauffeurPress" />
+            <Button id="_IDGenButton4" text="Ajouter" icon="sap-icon://add" press="onAddChauffeurPress" />
           <Button id="editChauffeurBtn" text="Modifier" icon="sap-icon://edit" press="onEditChauffeurPress" />
 <Button id="deleteChauffeurBtn" text="Supprimer" icon="sap-icon://delete" press="onDeleteChauffeurPress" />
           </Toolbar>

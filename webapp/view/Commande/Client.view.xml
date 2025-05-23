@@ -39,7 +39,7 @@
           <Toolbar id="_IDGenToolbar">
             <Title id="_IDGenTitle" text="Clients" />
             <ToolbarSpacer id="_IDGenToolbarSpacer" />
-            <Button id="_IDGenButton1" text="Ajouter un client" icon="sap-icon://add" press="onAddClientPress" />
+            <Button id="_IDGenButton1" text="Ajouter" icon="sap-icon://add" press="onAddClientPress" />
                
                  <Button id="btnDeleteClient"
   text="Supprimer"

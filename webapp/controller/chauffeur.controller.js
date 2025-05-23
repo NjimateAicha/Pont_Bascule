@@ -51,7 +51,7 @@ sap.ui.define([
                     if (oTable.setMode) {
                       oTable.setMode("SingleSelectMaster"); // ou "MultiSelect"
                     }
-                    oTable.attachUpdateFinished(this._onTableUpdateFinished.bind(this));
+                  //  oTable.attachUpdateFinished(this._onTableUpdateFinished.bind(this));
                   });
             
         // Assurez-vous que les modèles "transporteur" et "vehicule" sont bien définis avant d'afficher la boîte de dialogue
@@ -117,36 +117,36 @@ this._oODataModel.read("/ZCDS_vehicule", {
             });
         },
 
-        _onTableUpdateFinished: function (oEvent) {
-            var oTable = oEvent.getSource();
-            var aItems = oTable.getItems();
+        // _onTableUpdateFinished: function (oEvent) {
+        //     var oTable = oEvent.getSource();
+        //     var aItems = oTable.getItems();
 
-            if (!aItems.length) return;
+        //     if (!aItems.length) return;
 
-            if (!this._bExtraColumnsAdded) {
-                this._bExtraColumnsAdded = true;
-                oTable.addColumn(new Column({
-                    header: new Text({ text: "Nom transporteur" })
-                }));
-                oTable.addColumn(new Column({
-                    header: new Text({ text: "Matricule véhicule" })
-                }));
-            }
+        //     if (!this._bExtraColumnsAdded) {
+        //         this._bExtraColumnsAdded = true;
+        //         oTable.addColumn(new Column({
+        //             header: new Text({ text: "Nom transporteur" })
+        //         }));
+        //         oTable.addColumn(new Column({
+        //             header: new Text({ text: "Matricule véhicule" })
+        //         }));
+        //     }
 
-            aItems.forEach(function (oItem) {
-                if (oItem.getCells().length === oTable.getColumns().length - 2) {
-                    var sIdTransporter = oItem.getBindingContext().getProperty("Idtransporter");
-                    var sIdVehicule = oItem.getBindingContext().getProperty("Idvehicule");
+        //     aItems.forEach(function (oItem) {
+        //         if (oItem.getCells().length === oTable.getColumns().length - 2) {
+        //             var sIdTransporter = oItem.getBindingContext().getProperty("Idtransporter");
+        //             var sIdVehicule = oItem.getBindingContext().getProperty("Idvehicule");
 
-                    oItem.addCell(new Text({
-                        text: this._formatTransporterName(sIdTransporter)
-                    }));
-                    oItem.addCell(new Text({
-                        text: this._formatVehiculeMatricule(sIdVehicule)
-                    }));
-                }
-            }.bind(this));
-        },
+        //             oItem.addCell(new Text({
+        //                 text: this._formatTransporterName(sIdTransporter)
+        //             }));
+        //             oItem.addCell(new Text({
+        //                 text: this._formatVehiculeMatricule(sIdVehicule)
+        //             }));
+        //         }
+        //     }.bind(this));
+        // },
 
         _setupSmartTable: function () {
             var oSmartTable = this.getView().byId("smartTableChauffeur");

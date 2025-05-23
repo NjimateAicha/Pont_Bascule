@@ -92,7 +92,7 @@ sap.ui.define([
         
                 if (bIsIntern) {
                     oModel.setProperty("/Nomtransporteur", "Sofalim");
-                    oModel.setProperty("/Telephonetansporter", "0123456789");
+                    oModel.setProperty("/Telephonetansporter", "0623456789");
                     oModel.setProperty("/Adressetansporter", "10 rue de Sofalim, Casablanca");
                 } else {
                     // Extern or any other type
