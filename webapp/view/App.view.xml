@@ -22,7 +22,7 @@
             <tnt:NavigationListItem id="_IDGenNavigationListItem4" text="Transporter" key="transporter" icon="sap-icon://shipping-status" />
             <tnt:NavigationListItem id="_IDGenNavigationListItem5" text="Vehicule" key="vehicule" icon="sap-icon://car-rental" />
             <tnt:NavigationListItem id="_IDGenNavigationListItem6" text="Chauffeur" key="chauffeur" icon="sap-icon://employee" />
-            <tnt:NavigationListItem id="_IDGenNavigationListItem7" text="Bascule" key="Bascule" icon="sap-icon://measure" />
+            <!-- <tnt:NavigationListItem id="_IDGenNavigationListItem7" text="Bascule" key="Bascule" icon="sap-icon://measure" /> -->
         
 
           </tnt:NavigationList>

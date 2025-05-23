@@ -14,7 +14,7 @@
       <!-- SmartFilterBar -->
       <smartFilterBar:SmartFilterBar
         id="smartFilterBarr"
-        entitySet="ZCDS_BASCULE">
+        entitySet="ZCDS_Basculee2">
         <smartFilterBar:controlConfiguration>
           <smartFilterBar:ControlConfiguration id="_IDGenControlConfigurationn"
             key="Idbascule"
@@ -26,7 +26,7 @@
       <smartTable:SmartTable
         id="smartTableBascule"
         smartFilterId="smartFilterBar"
-        entitySet="ZCDS_BASCULE"
+        entitySet="ZCDS_Basculee2"
         tableType="ResponsiveTable"
         useTablePersonalisation="true"
         useVariantManagement="false"

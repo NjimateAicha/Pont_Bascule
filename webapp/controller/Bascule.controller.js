@@ -83,7 +83,7 @@ delete oNewData.Poids;
                     });
                 } else {
                     console.log("data", oNewData);;
-                    oModel.create("/ZCDS_BASCULE", oNewData, {
+                    oModel.create("/ZCDS_Basculee2", oNewData, {
                         success: () => {
                             sap.ui.core.BusyIndicator.hide();
                             MessageToast.show("Bascule ajoutée.");
@@ -167,7 +167,7 @@ delete oNewData.Poids;
     
             _generateNextIdBascule: function (callback) {
                 var oModel = this._oODataModel;
-                oModel.read("/ZCDS_BASCULE", {
+                oModel.read("/ZCDS_Basculee2", {
                     success: function (oData) {
                         var max = 0;
                         oData.results.forEach((item) => {
