@@ -41,7 +41,7 @@
 
             <Title id="_IDGenTitle1" text="Articles" />
             <ToolbarSpacer id="_IDGenToolbarSpacer2" />
-            <Button id="_IDGenButton12" text="Ajouter un article" icon="sap-icon://add" press="onAddArticlePress"  />
+            <Button id="_IDGenButton12" text="Ajouter" icon="sap-icon://add" press="onAddArticlePress"  />
              <Button id="btnDeleteArticle"
   text="Supprimer"
   icon="sap-icon://delete"

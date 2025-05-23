@@ -18,7 +18,7 @@
                 <!-- En-tête avec titre et date -->
                 <HBox id="_IDGenHBox1" justifyContent="SpaceBetween" alignItems="Center" class="headerSection">
                     <VBox id="_IDGenVBox3">
-                        <Title id="_IDGenTitle3" text="Tableau de Bord" level="H1" class="mainTitle"/>
+                        <Title id="_IDGenTitle23" text="Tableau de Bord" level="H1" class="mainTitle"/>
                         <Text id="_IDGenText" text="Vue d'ensemble des activités" class="subTitle"/>
                     </VBox>
                     <HBox id="_IDGenHBox2" alignItems="Center" class="dateSection">

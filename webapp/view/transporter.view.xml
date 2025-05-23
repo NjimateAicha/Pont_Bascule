@@ -43,7 +43,7 @@
           <Toolbar id="_IDGenToolbar12">
           
             <ToolbarSpacer id="_IDGenToolbarSpacer12" />
-            <Button id="_IDGenButton2" text="Ajouter un tansprter" icon="sap-icon://add" press="onAddTransporterPress" />
+            <Button id="_IDGenButton2" text="Ajouter" icon="sap-icon://add" press="onAddTransporterPress" />
             <Button id="editTransporterBtn" text="Modifier" icon="sap-icon://edit" press="onEditTransporterPress" enabled="true" />
             <Button id="deleteTransporterBtn" text="Supprimer" icon="sap-icon://delete" press="onDeleteTransporterPress" enabled="true" />
           </Toolbar>
