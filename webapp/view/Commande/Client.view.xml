@@ -70,7 +70,7 @@
 
   <Dialog
     id="addClientDialog"
-    title="Ajouter un nouveau client"
+    title="Nouveau Client"
     contentWidth="30rem"
     class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
     

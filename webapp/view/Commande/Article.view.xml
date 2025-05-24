@@ -70,11 +70,16 @@
   </Page>
 
   <!-- DIALOGUE POUR AJOUT ARTICLE -->
-  <Dialog
-    id="addArticleDialog"
-    title="Ajouter un nouvel article"
-    contentWidth="30rem"
-    class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
+ <Dialog
+  id="addArticleDialog"
+  title="Nouvel Article"
+  contentWidth="30rem"
+  draggable="true"
+  resizable="false"
+
+  class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer sapUiContentPadding" 
+>
+
     
     <f:SimpleForm
       id="formAddArticle"

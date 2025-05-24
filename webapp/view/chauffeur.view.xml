@@ -57,7 +57,7 @@
   <!-- DIALOG : Ajouter un chauffeur -->
   <Dialog
     id="addChauffeurDialog"
-    title="Ajouter un nouveau chauffeur"
+    title=" Nouveau Chauffeur"
     contentWidth="30rem"
     class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
     

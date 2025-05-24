@@ -56,7 +56,7 @@
   <!-- DIALOG : Ajouter un véhicule -->
   <Dialog
     id="addvehiculeDialog"
-    title="Ajouter un nouveau véhicule"
+    title="Nouveau Véhicule"
     contentWidth="30rem"
     class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
     

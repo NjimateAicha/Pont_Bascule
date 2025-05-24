@@ -65,7 +65,7 @@
   <!-- DIALOG : Ajouter un transporteur -->
   <Dialog
     id="addTransporterDialog"
-    title="Ajouter un nouveau transporteur"
+    title=" Nouveau Transporteur"
     contentWidth="30rem"
     class="sapUiResponsivePadding--header sapUiResponsivePadding--content sapUiResponsivePadding--footer">
     

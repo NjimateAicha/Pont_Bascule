@@ -27,93 +27,94 @@
                     </HBox>
                 </HBox>
                 
-                <!-- Section KPI - Première rangée -->
-                <Panel id="_IDGenPanel" headerText="Indicateurs Clés de Performance" class="kpiPanel">
-                    <HBox id="_IDGenHBox3" justifyContent="SpaceAround" wrap="Wrap" class="kpiRow">
-                        
-                        <GenericTile id="_IDGenGenericTile" header="Commandes" 
-                                   subheader="Total enregistrées" 
-                                   class="kpiTile commandesTile"
-                                   press="onTilePress">
-                            <TileContent id="_IDGenTileContent">
-                                <NumericContent id="_IDGenNumericContent" value="{dashboard>/totalCommandes}" 
-                                              icon="sap-icon://sales-order" 
-                                              size="M"
-                                              valueColor="Good"
-                                              indicator="Up"/>
-                            </TileContent>
-                        </GenericTile>
-                        
-                        <GenericTile id="_IDGenGenericTile1" header="Clients" 
-                                   subheader="Actifs dans le système" 
-                                   class="kpiTile clientsTile"
-                                   press="onTilePress">
-                            <TileContent id="_IDGenTileContent1">
-                                <NumericContent id="_IDGenNumericContent1" value="{dashboard>/totalClients}" 
-                                              icon="sap-icon://customer" 
-                                              size="M"
-                                              valueColor="Good"
-                                              indicator="Up"/>
-                            </TileContent>
-                        </GenericTile>
-                        
-                        <GenericTile id="_IDGenGenericTile2" header="Articles" 
-                                   subheader="Disponibles en stock" 
-                                   class="kpiTile articlesTile"
-                                   press="onTilePress">
-                            <TileContent id="_IDGenTileContent2">
-                                <NumericContent id="_IDGenNumericContent2" value="{dashboard>/totalArticles}" 
-                                              icon="sap-icon://product" 
-                                              size="M"
-                                              valueColor="Neutral"/>
-                            </TileContent>
-                        </GenericTile>
-                        
-                    </HBox>
-                </Panel>
-                
+         <Panel id="_IDGenPanel" headerText="Indicateurs Clés de Performance" class="kpiPanel">
+  <VBox id="_IDGenVBox6">
+
+    <!-- ✅ Rangée 1 -->
+    <HBox id="kpiRow1" justifyContent="SpaceAround" wrap="Wrap" class="kpiRow">
+      <GenericTile id="_IDGenGenericTile" header="Commandes" 
+                   subheader="Total enregistrées" 
+                   class="kpiTile commandesTile"
+                   press="onTilePress">
+        <TileContent id="_IDGenTileContent">
+          <NumericContent id="_IDGenNumericContent1" value="{dashboard>/totalCommandes}" 
+                          icon="sap-icon://sales-order" 
+                          size="M"
+                          valueColor="Good"
+                          indicator="Up"/>
+        </TileContent>
+      </GenericTile>
+
+      <GenericTile id="_IDGenGenericTile1" header="Clients" 
+                   subheader="Actifs dans le système" 
+                   class="kpiTile clientsTile"
+                   press="onTilePress">
+        <TileContent id="_IDGenTileContent1">
+          <NumericContent id="_IDGenNumericContent2" value="{dashboard>/totalClients}" 
+                          icon="sap-icon://customer" 
+                          size="M"
+                          valueColor="Good"
+                          indicator="Up"/>
+        </TileContent>
+      </GenericTile>
+
+      <GenericTile id="_IDGenGenericTile2" header="Articles" 
+                   subheader="Disponibles en stock" 
+                   class="kpiTile articlesTile"
+                   press="onTilePress">
+        <TileContent id="_IDGenTileContent2">
+          <NumericContent id="_IDGenNumericContent3" value="{dashboard>/totalArticles}" 
+                          icon="sap-icon://product" 
+                          size="M"
+                          valueColor="Neutral"/>
+        </TileContent>
+      </GenericTile>
+    </HBox>
+
+    <!-- ✅ Rangée 2 -->
+    <HBox id="kpiRow2" justifyContent="SpaceAround" wrap="Wrap" class="kpiRow">
+      <GenericTile id="_IDGenGenericTile3" header="Transporteurs" 
+                   subheader="Partenaires agréés" 
+                   class="kpiTile transporteursTile"
+                   press="onTilePress">
+        <TileContent id="_IDGenTileContent3">
+          <NumericContent id="_IDGenNumericContent4" value="{dashboard>/totalTransporteurs}" 
+                          icon="sap-icon://shipping-cart" 
+                          size="M"
+                          valueColor="Neutral"/>
+        </TileContent>
+      </GenericTile>
+
+      <GenericTile id="_IDGenGenericTile4" header="Véhicules" 
+                   subheader="Flotte disponible" 
+                   class="kpiTile vehiculesTile"
+                   press="onTilePress">
+        <TileContent id="_IDGenTileContent4">
+          <NumericContent id="_IDGenNumericContent5" value="{dashboard>/totalVehicules}" 
+                          icon="sap-icon://car-rental" 
+                          size="M"
+                          valueColor="Neutral"/>
+        </TileContent>
+      </GenericTile>
+
+      <GenericTile id="_IDGenGenericTile5" header="Chauffeurs" 
+                   subheader="Équipe complète" 
+                   class="kpiTile chauffeursTile"
+                   press="onTilePress">
+        <TileContent id="_IDGenTileContent5">
+          <NumericContent id="_IDGenNumericContent6" value="{dashboard>/totalChauffeurs}" 
+                          icon="sap-icon://employee" 
+                          size="M"
+                          valueColor="Neutral"/>
+        </TileContent>
+      </GenericTile>
+    </HBox>
+
+  </VBox>
+</Panel>
+
                 <!-- Section Transport - Deuxième rangée -->
-                <Panel id="_IDGenPanel1" headerText="Gestion du Transport" class="transportPanel">
-                    <HBox id="_IDGenHBox4" justifyContent="SpaceAround" wrap="Wrap" class="transportRow">
-                        
-                        <GenericTile id="_IDGenGenericTile3" header="Transporteurs" 
-                                   subheader="Partenaires agréés" 
-                                   class="kpiTile transporteursTile"
-                                   press="onTilePress">
-                            <TileContent id="_IDGenTileContent3">
-                                <NumericContent id="_IDGenNumericContent3" value="{dashboard>/totalTransporteurs}" 
-                                              icon="sap-icon://shipping-cart" 
-                                              size="M"
-                                              valueColor="Neutral"/>
-                            </TileContent>
-                        </GenericTile>
-                        
-                        <GenericTile id="_IDGenGenericTile4" header="Véhicules" 
-                                   subheader="Flotte disponible" 
-                                   class="kpiTile vehiculesTile"
-                                   press="onTilePress">
-                            <TileContent id="_IDGenTileContent4">
-                                <NumericContent id="_IDGenNumericContent4" value="{dashboard>/totalVehicules}" 
-                                              icon="sap-icon://car-rental" 
-                                              size="M"
-                                              valueColor="Neutral"/>
-                            </TileContent>
-                        </GenericTile>
-                        
-                        <GenericTile id="_IDGenGenericTile5" header="Chauffeurs" 
-                                   subheader="Équipe complète" 
-                                   class="kpiTile chauffeursTile"
-                                   press="onTilePress">
-                            <TileContent id="_IDGenTileContent5">
-                                <NumericContent id="_IDGenNumericContent5" value="{dashboard>/totalChauffeurs}" 
-                                              icon="sap-icon://employee" 
-                                              size="M"
-                                              valueColor="Neutral"/>
-                            </TileContent>
-                        </GenericTile>
-                        
-                    </HBox>
-                </Panel>
+               
                 
                 <!-- Section Graphiques -->
                 <Panel id="_IDGenPanel2" headerText="Analyse Graphique" class="chartPanel">
