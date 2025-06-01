@@ -25,7 +25,7 @@
       <!-- Table SmartTable pour afficher les commandes -->
       <smartTable:SmartTable
         id="smartTableCommande"
-        smartFilterId="smartFilterBar"
+        smartFilterId="smartFilterBar3"
         entitySet="ZCDS_commande"
         tableType="ResponsiveTable"
         useTablePersonalisation="true"

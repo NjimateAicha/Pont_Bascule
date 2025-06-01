@@ -14,6 +14,7 @@
 
       <smartFilterBar:SmartFilterBar
         id="smartFilterBar1"
+        
         entitySet="ZCDS_article">
         <smartFilterBar:controlConfiguration>
           <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration1"
@@ -26,7 +27,8 @@
       <!-- Tableau des articles -->
       <smartTable:SmartTable
         id="smartTableArticle"
-        smartFilterId="smartFilterBarArticle"
+        smartFilterId="smartFilterBar1"
+  
         entitySet="ZCDS_article"
         tableType="ResponsiveTable"
         useTablePersonalisation="true"

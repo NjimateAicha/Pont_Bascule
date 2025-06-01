@@ -8,7 +8,7 @@
     xmlns:vizframe="sap.viz.ui5.controls.VizFrame">
     
     <Page id="dashboardPage" 
-          title="Pont Bascule - Espace Admin" 
+     
           class="sapUiResponsivePadding dashboardPage">
         
         <content>

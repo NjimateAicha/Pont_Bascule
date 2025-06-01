@@ -27,7 +27,7 @@
       <!-- SmartTable -->
       <smartTable:SmartTable
         id="smartTabletrasporter"   
-        smartFilterId="smartFilterBar"
+        smartFilterId="smartFilterBar35"
         entitySet="zcds_transporter"
         tableType="ResponsiveTable"
         useTablePersonalisation="true"
