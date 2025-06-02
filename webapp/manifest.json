@@ -165,7 +165,15 @@
           "target": [
             "TargetBascule"
           ]
+        },
+        {
+          "name": "Fluxtraiter",
+          "pattern": "Fluxtraiter",
+          "target": [
+            "TargetFluxtraiter"
+          ]
         }
+      
       ],
       "targets": {
         "TargetDashboard": {
@@ -231,7 +239,15 @@
     "type": "XML",
     "controlId": "app",
     "controlAggregation": "pages"
-  }
+  },
+
+        "TargetFluxtraiter": {
+          "viewName": "Fluxtraiter",
+          "viewId": "Fluxtraiter",
+          "type": "XML",
+          "controlId": "app",
+          "controlAggregation": "pages"
+        }
 }
     },
     "rootView": {

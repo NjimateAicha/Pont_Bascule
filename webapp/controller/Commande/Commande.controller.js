@@ -20,7 +20,8 @@ sap.ui.define([
                 Adresse: "",
                 Idarticle: "",
                 Nomarticle: "",
-                Prixunitaire: ""
+                Prixunitaire: "",
+                Statuscommandecommande: "Disponible"  
             });
             this.getView().setModel(oCommandeModel, "newCommande");
 
@@ -98,105 +99,6 @@ sap.ui.define([
         
 
 
-       
-//         onSaveCommande: function () {
-//             const oModel = this._oODataModel;
-//             oModel.setUseBatch(false);
-        
-//             const oCommandeModel = this.getView().getModel("newCommande");
-//             const oData = oCommandeModel.getData();
-//             const formattedDate = new Date(oData.Datecommande).toISOString().split("T")[0];
-        
-          
-//             if (!oData.Idcommande || !oData.Idclient || !oData.Articles || oData.Articles.length === 0) {
-//                 MessageBox.error("Veuillez remplir la commande et ajouter au moins un article.");
-//                 return;
-//             }
-        
-           
-//             const seen = new Set();
-//             const duplicates = oData.Articles.some(article => {
-//                 const key = article.Idarticle;
-//                 if (!key) return true; // Cas article vide
-//                 if (seen.has(key)) return true; // Doublon
-//                 seen.add(key);
-//                 return false;
-//             });
-        
-//             if (duplicates) {
-//                 MessageBox.error("Un ou plusieurs articles sont vides ou dupliqués. Veuillez corriger.");
-//                 return;
-//             }
-        
-           
-//             let inserted = 0;
-//             const total = oData.Articles.length;
-        
-//             const finish = () => {
-//                 this.getView().byId("addCommandeDialog").close();
-//                 this.byId("smartTableCommande").rebindTable();
-//                 MessageToast.show("Commande enregistrée avec succès.");
-//             };
-        
-//             oData.Articles.forEach(article => {
-//                 const quantite = parseFloat(article.Quantite || 0);
-//                 const prix = parseFloat(article.Prixunitaire || 0);
-//                 const oEntry = {
-                
-//                     Idcommande: oData.Idcommande,
-//                     Datecommande: formattedDate,
-//                     Idclient: oData.Idclient,
-//                     Nomclient: oData.Nomclient,
-//                     Adresse: oData.Adresse,
-//                     Idarticle: article.Idarticle,
-//                     Nomarticle: article.Nomarticle,
-//                     Quantite: quantite.toString(),
-//                     Prixunitaire: prix.toString(),
-//                     Prixtotal: (quantite * prix).toFixed(2)
-//                 };
-//                 console.log("Article à enregistrer : ", oEntry);
-
-//             // 1. Lire l'article
-// oModel.read("/ZCDS_article('" + article.Idarticle + "')", {
-//     success: (oArticleData) => {
-//         const stockDispo = parseFloat(oArticleData.Quantitearticle);
-
-//         if (quantite > stockDispo) {
-//             MessageBox.error("Stock insuffisant pour l'article " + article.Nomarticle + ". Stock dispo : " + stockDispo);
-//             return;
-//         }
-
-//         // 2. Créer la commande
-//         oModel.create("/ZCDS_commande", oEntry, {
-//             success: () => {
-//                 // 3. Mettre à jour le stock
-//                 const newStock = stockDispo - quantite;
-//                 oModel.update("/ZCDS_article('" + article.Idarticle + "')", {
-//                     Quantitearticle: newStock.toString()
-//                 }, {
-//                     success: () => {
-//                         console.log("Stock mis à jour pour article : " + article.Idarticle);
-//                     },
-//                     error: () => {
-//                         MessageToast.show("Commande enregistrée, mais échec de mise à jour du stock.");
-//                     }
-//                 });
-
-//                 inserted++;
-//                 if (inserted === total) finish();
-//             },
-//             error: () => {
-//                 MessageBox.error("Erreur d’enregistrement d’un article.");
-//             }
-//         });
-//     },
-//     error: () => {
-//         MessageBox.error("Impossible de récupérer les infos de l’article : " + article.Idarticle);
-//     }
-// });
-
-//             });
-//         }
 onSaveCommande: function () {
     const oCommandeModel = this.getView().getModel("newCommande");
     const isUpdate = oCommandeModel.getProperty("/IsUpdate");
@@ -258,7 +160,8 @@ _createNewCommande: function () {
             Nomarticle: article.Nomarticle,
             Quantite: quantite.toString(),
             Prixunitaire: prix.toString(),
-            Prixtotal: (quantite * prix).toFixed(2)
+            Prixtotal: (quantite * prix).toFixed(2),
+            Statuscommande : "Disponible"
         };
 
         oModel.read("/ZCDS_article('" + article.Idarticle + "')", {
@@ -550,7 +453,7 @@ _updateExistingCommande: function () {
                         Idarticle: oData.Idarticle,
                         Nomarticle: oData.Nomarticle,
                         Prixunitaire: oData.Prixunitaire,
-                        Quantite: oData.Quantite,
+                        Quatite: oData.Quantite,
                         Prixtotal: oData.Prixtotal
                     }
                 ],
@@ -561,6 +464,9 @@ _updateExistingCommande: function () {
             this.getView().byId("addCommandeDialog").open();
         }
   
+
+
+
         
         
           

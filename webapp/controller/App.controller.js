@@ -37,6 +37,9 @@ sap.ui.define([
             case "Bascule":
               this.getOwnerComponent().getRouter().navTo("Bascule");
               break;
+               case "Fluxtraiter":
+              this.getOwnerComponent().getRouter().navTo("Fluxtraiter");
+              break;
               
         default:
           console.warn("Clé de navigation inconnue :", sKey);

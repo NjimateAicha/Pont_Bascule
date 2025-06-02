@@ -33,7 +33,8 @@
         showRowCount="true"
         enableAutoBinding="true"
         persistencyKey="PT_COMMANDE"
-        initiallyVisibleFields="Idcommande,Idclient,Nomclient,Adresse,Prixtotal,Datecommande,Quantite,Idarticle,NomArticle,Quantitearticle,Prixunitaire,PrixtotalDetail">
+      
+        initiallyVisibleFields="Idcommande,Idclient,Nomclient,Adresse,Prixtotal,Datecommande,Quantite,Idarticle,NomArticle,Quantitearticle,Prixunitaire,PrixtotalDetail,Statuscommande">
 
         <!-- Barre d'outils personnalisée -->
         <smartTable:customToolbar>
@@ -45,7 +46,10 @@
             <Button id="btnUpdateCommande" text="Modifier" icon="sap-icon://edit" press="onUpdateCommandePress" enabled="true" />
           </Toolbar>
         </smartTable:customToolbar>
+         
+
       </smartTable:SmartTable>
+      
     </content>
 
     <!-- Footer avec un bouton Retour -->

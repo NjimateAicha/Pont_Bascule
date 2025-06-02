@@ -1,0 +1,44 @@
+<mvc:View
+  controllerName="projectsd.controller.Fluxtraiter"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+  xmlns:smartTable="sap.ui.comp.smarttable"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:unified="sap.ui.unified">
+
+
+
+  <Page id="mainePageee" showHeader="false">
+        <smartFilterBar:SmartFilterBar
+        id="smartFilterBarOpercloce"
+        entitySet="ZCDS_flux">
+        <smartFilterBar:controlConfiguration>
+          <smartFilterBar:ControlConfiguration id="_IDGenControlConfiguration334" key="Idflux" visibleInAdvancedArea="true" />
+        </smartFilterBar:controlConfiguration>
+      </smartFilterBar:SmartFilterBar>
+
+    
+      <smartTable:SmartTable
+       smartFilterId="smartFilterBarOpercloce"
+        id="smartTableOperClose"
+        entitySet="ZCDS_flux"
+        tableType="ResponsiveTable"
+        useVariantManagement="false"
+        useTablePersonalisation="true"
+        enableAutoBinding="true"
+        header="Table de Livraison Terminées"
+        beforeRebindTable="onBeforeRebindOperClose"
+        showRowCount="false"
+        >
+     
+
+       
+      </smartTable:SmartTable>
+  
+  </Page>
+
+
+ 
+</mvc:View>
